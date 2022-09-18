@@ -1,0 +1,23 @@
+{
+	"extends": "@oly_op/tsconfig/tsconfig.json",
+	"compilerOptions": {
+		"jsx": "react",
+		"jsxFactory": "createElement",
+		"exactOptionalPropertyTypes": false,
+		"baseUrl": "./",
+		"paths": {
+			"*": ["types/*"]
+		}
+	},
+	"include": [
+		"src",
+		"types",
+		"scripts",
+		"webpack.config.ts"
+	],
+	"ts-node": {
+		"swc": true,
+		"files": true,
+    "require": ["tsconfig-paths/register"]
+  }
+}

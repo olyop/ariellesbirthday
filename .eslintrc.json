@@ -1,0 +1,12 @@
+{
+	"extends": [
+		"@oly_op/eslint-config-react",
+		"@oly_op"
+	],
+	"parserOptions": {
+		"project": "./tsconfig.json"
+	},
+	"rules": {
+		"react/jsx-one-expression-per-line": "off"
+	}
+}
