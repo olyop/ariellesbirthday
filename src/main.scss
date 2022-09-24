@@ -1,0 +1,6 @@
+.Main {
+	--section-gap: calc(3 * var(--space));
+	gap: var(--section-gap);
+	padding-top: var(--section-gap);
+	padding-bottom: var(--section-gap);
+}

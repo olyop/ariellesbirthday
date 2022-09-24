@@ -1,3 +1,6 @@
 {
-	"extends": "@oly_op/stylelint-config"
+	"extends": "@oly_op/stylelint-config",
+	"rules": {
+		"block-closing-brace-space-before": null
+	}
 }

@@ -1,28 +1,42 @@
-import path from "node:path"
-import { readFileSync } from "node:fs"
-import DotenvPlugin from "dotenv-webpack"
-import ESLintPlugin from "eslint-webpack-plugin"
-import webpack, { Configuration } from "webpack"
-import CopyWebpackPlugin from "copy-webpack-plugin"
-import HTMLWebpackPlugin from "html-webpack-plugin"
-import StylelintPlugin from "stylelint-webpack-plugin"
-import CompressionPlugin from "compression-webpack-plugin"
-import MiniCSSExtractPlugin from "mini-css-extract-plugin"
-import CSSMinimizerPlugin from "css-minimizer-webpack-plugin"
-import { Configuration as DevServerConfiguration } from "webpack-dev-server"
+import path from "node:path";
+import { load } from "js-yaml";
+import { readFileSync } from "node:fs";
+import DotenvPlugin from "dotenv-webpack";
+import { readFile } from "node:fs/promises";
+import ESLintPlugin from "eslint-webpack-plugin";
+import webpack, { Configuration, WebpackPluginInstance } from "webpack";
+import CopyWebpackPlugin from "copy-webpack-plugin";
+import HTMLWebpackPlugin from "html-webpack-plugin";
+import StylelintPlugin from "stylelint-webpack-plugin";
+import CompressionPlugin from "compression-webpack-plugin";
+import MiniCSSExtractPlugin from "mini-css-extract-plugin";
+import CSSMinimizerPlugin from "css-minimizer-webpack-plugin";
+import { Configuration as DevServerConfiguration } from "webpack-dev-server";
 
-import packageDotJSON from "./package.json" assert { type: "json" }
+import { ConfigContext } from "./src/types";
 
-const IS_DEVELOPMENT =
-	process.env.NODE_ENV === "development"
+import packageDotJSON from "./package.json" assert { type: "json" };
 
-const ROOT_PATH = process.cwd()
-const SRC_PATH = path.join(ROOT_PATH, "src")
-const SRC_PUBLIC_PATH = path.join(SRC_PATH, "public")
-const SRC_ROOT_PATH = path.join(SRC_PATH, "index.tsx")
-const SRC_ENTRY_PATH = path.join(SRC_PATH, "index.html")
+const IS_DEVELOPMENT = process.env.NODE_ENV === "development";
 
-const BUILD_PATH = path.join(ROOT_PATH, "build")
+const ROOT_PATH = process.cwd();
+const SRC_PATH = path.join(ROOT_PATH, "src");
+const SRC_PUBLIC_PATH = path.join(SRC_PATH, "public");
+const SRC_ROOT_PATH = path.join(SRC_PATH, "index.tsx");
+const SRC_ENTRY_PATH = path.join(SRC_PATH, "index.html");
+const SRC_CONFIG_PATH = path.join(SRC_PUBLIC_PATH, "config.yaml");
+
+const BUILD_PATH = path.join(ROOT_PATH, "build");
+
+const config = (await load((await readFile(SRC_CONFIG_PATH)).toString())) as ConfigContext;
+
+const HTTPS_OPTIONS = {
+	type: "https",
+	options: {
+		cert: readFileSync(process.env.TLS_CERTIFICATE_PATH),
+		key: readFileSync(process.env.TLS_CERTIFICATE_KEY_PATH),
+	},
+};
 
 const devServer: DevServerConfiguration = {
 	host: process.env.HOST,
@@ -34,21 +48,28 @@ const devServer: DevServerConfiguration = {
 	static: {
 		directory: SRC_PUBLIC_PATH,
 	},
-	server: process.env.HTTPS === "true" ? {
-		type: "https",
-		options: {
-			cert: readFileSync(process.env.TLS_CERTIFICATE_PATH),
-			key: readFileSync(process.env.TLS_CERTIFICATE_KEY_PATH),
-		},
-	} : undefined,
-}
+	server: process.env.HTTPS === "true" ? HTTPS_OPTIONS : undefined,
+};
 
-const firstCSSLoader =
-	IS_DEVELOPMENT ?
-		"style-loader" :
-		MiniCSSExtractPlugin.loader
+const firstCSSLoader = IS_DEVELOPMENT ? "style-loader" : MiniCSSExtractPlugin.loader;
 
-const config: Configuration = {
+const developmentPlugins: WebpackPluginInstance[] = [
+	new CompressionPlugin(),
+	new CSSMinimizerPlugin(),
+	new MiniCSSExtractPlugin({
+		filename: "index-[fullhash].css",
+	}),
+	new CopyWebpackPlugin({
+		patterns: [
+			{
+				to: BUILD_PATH,
+				from: SRC_PUBLIC_PATH,
+			},
+		],
+	}),
+];
+
+const webpackConfiguration: Configuration = {
 	devServer,
 	devtool: false,
 	stats: "errors-only",
@@ -70,26 +91,40 @@ const config: Configuration = {
 		topLevelAwait: true,
 	},
 	module: {
-		rules: [{
-			test: /\.tsx?$/,
-			loader: "ts-loader",
-			options: {
-				onlyCompileBundledFiles: true,
+		rules: [
+			{
+				test: /\.tsx?$/,
+				loader: "ts-loader",
+				options: {
+					onlyCompileBundledFiles: true,
+				},
 			},
-		},{
-			test: /\.css$/,
-			use: [
-				firstCSSLoader,
-				"css-loader",
-			],
-		},{
-			test: /\.scss$/,
-			use: [
-				firstCSSLoader,
-				"css-loader",
-				"sass-loader",
-			],
-		}],
+			{
+				test: /\.css$/,
+				use: [
+					firstCSSLoader,
+					{
+						loader: "css-loader",
+						options: {
+							url: false,
+						},
+					},
+				],
+			},
+			{
+				test: /\.scss$/,
+				use: [
+					firstCSSLoader,
+					{
+						loader: "css-loader",
+						options: {
+							url: false,
+						},
+					},
+					"sass-loader",
+				],
+			},
+		],
 	},
 	plugins: [
 		new DotenvPlugin(),
@@ -98,6 +133,7 @@ const config: Configuration = {
 		}),
 		new HTMLWebpackPlugin({
 			minify: true,
+			title: config.TITLE,
 			filename: "index.html",
 			template: SRC_ENTRY_PATH,
 		}),
@@ -107,20 +143,8 @@ const config: Configuration = {
 		new ESLintPlugin({
 			extensions: ["ts", "tsx"],
 		}),
-		...(IS_DEVELOPMENT ? [] : [
-			new CompressionPlugin(),
-			new CSSMinimizerPlugin(),
-			new MiniCSSExtractPlugin({
-				filename: "index-[fullhash].css",
-			}),
-			new CopyWebpackPlugin({
-				patterns: [{
-					to: BUILD_PATH,
-					from: SRC_PUBLIC_PATH,
-				}],
-			}),
-		]),
+		...(IS_DEVELOPMENT ? [] : developmentPlugins),
 	],
-}
+};
 
-export default config
+export default webpackConfiguration;

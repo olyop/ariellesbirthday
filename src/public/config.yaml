@@ -1,0 +1,26 @@
+DATES:
+  RSVP: 2022-12-10T00:00:00+10:00
+  PARTY: 2023-01-21T13:00:00+10:00
+
+TITLE: Arielle's Thirtieth Birthday Party
+
+RSVP:
+  BUTTON:
+    ICON: event_available
+    TEXT: RSVP to the party
+
+INFORMATION:
+  EXPAND_TEXT:
+    FULL: Find out more
+    SMALL: More
+
+  WHERE: Centennial Parklands
+  WHEN: Saturday, January 21, 2023
+  TIME: 2pm
+
+FOOTER:
+  CREATED_BY:
+    TEXT: Created by Oliver Plummer
+    LINK:
+      URL: https://olyop.com
+      TEXT: olyop.com

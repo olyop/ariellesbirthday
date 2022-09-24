@@ -1,12 +1,26 @@
 {
-	"extends": [
-		"@oly_op/eslint-config-react",
-		"@oly_op"
-	],
+	"extends": ["@oly_op/eslint-config-react", "@oly_op"],
 	"parserOptions": {
 		"project": "./tsconfig.json"
 	},
 	"rules": {
-		"react/jsx-one-expression-per-line": "off"
+		"@typescript-eslint/semi": ["error", "always"],
+		"@typescript-eslint/member-delimiter-style": [
+			"error",
+			{
+				"multiline": {
+					"requireLast": true,
+					"delimiter": "semi"
+				},
+				"singleline": {
+					"delimiter": "semi",
+					"requireLast": true
+				}
+			}
+		],
+		"react/jsx-tag-spacing": "off",
+		"react/jsx-curly-newline": "off",
+		"react/jsx-one-expression-per-line": "off",
+		"eol-last": ["error", "always"]
 	}
 }

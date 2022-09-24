@@ -1,0 +1,29 @@
+.Information {
+	--row-gap: var(--space-half);
+	--button-dimension: 36rem;
+	&__content {
+		display: grid;
+		align-items: flex-start;
+		grid-template-columns: auto 1fr;
+	}
+	&__left {
+		display: grid;
+		row-gap: var(--row-gap);
+		grid-template: repeat(3, 1fr) / auto var(--space-quart);
+		&-gap {
+			background-color: var(--secondary-color);
+		}
+	}
+	&__right {
+		min-height: 500rem;
+		border-radius: var(--border-radius);
+		border-top-left-radius: 0;
+		padding: calc(var(--space-quart) + (var(--button-dimension) / 2) - 7rem);
+		&-expanded {
+			background-color: var(--secondary-color);
+		}
+	}
+	&__location {
+		height: 400rem;
+	}
+}

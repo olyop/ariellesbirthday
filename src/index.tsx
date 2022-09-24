@@ -1,27 +1,17 @@
-import { createRoot } from "react-dom/client"
-import { BrowserRouter } from "react-router-dom"
-import { createElement, StrictMode } from "react"
+import { createRoot } from "react-dom/client";
+import { createElement, StrictMode } from "react";
 
-import Pages from "./pages"
-import Metadata from "./providers/metadata"
+import Main from "./main";
+import { Config } from "./providers";
 
-import "@oly_op/css-utilities/index.css"
-
-import "./index.scss"
-import Header from "./components/header"
-
-const container =
-	document.getElementById("Root")
+const container = document.getElementById("Root");
 
 if (container) {
 	createRoot(container).render(
 		<StrictMode>
-			<Metadata>
-				<BrowserRouter>
-					<Header/>
-					<Pages/>
-				</BrowserRouter>
-			</Metadata>
+			<Config>
+				<Main />
+			</Config>
 		</StrictMode>,
-	)
+	);
 }
