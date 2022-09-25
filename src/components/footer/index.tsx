@@ -11,15 +11,15 @@ const Footer: FC = () => {
 	const config = useConfig();
 	return (
 		<div className={bem("", "FlexColumnCenter")}>
-			<p className="ParagraphTwo">{config.FOOTER.CREATED_BY.TEXT}</p>
+			<p className="ParagraphTwo">{config.footer.createdBy.text}</p>
 			<a
-				href={config.FOOTER.CREATED_BY.LINK.URL}
+				href={config.footer.createdBy.link.url}
 				className="Link ParagraphTwo"
 				rel="noreferrer"
 				target="_blank"
-				title={config.FOOTER.CREATED_BY.LINK.TEXT}
+				title={config.footer.createdBy.link.text}
 			>
-				{config.FOOTER.CREATED_BY.LINK.TEXT}
+				{config.footer.createdBy.link.text}
 			</a>
 		</div>
 	);

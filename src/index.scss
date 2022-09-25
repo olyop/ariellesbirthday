@@ -14,9 +14,6 @@
 	--hover-color: var(--secondary-color-light);
 	--border-hover-color: #ffcc80;
 
-	--background-color-1: #fff3e0;
-	--background-color-2: #ffe0b2;
-
 	--font-family: "Comfortaa", sans-serif;
 
 	--transition-duration: 0.4s;
@@ -27,6 +24,7 @@
 
 #Root {
 	overflow-y: scroll;
+	background-color: var(--background-color);
 }
 
 @media (max-width: 1360px) {

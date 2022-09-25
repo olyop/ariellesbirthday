@@ -9,10 +9,10 @@ import "./index.scss";
 
 const bem = createBEM("InformationItem");
 
-const InformationItem: FC<PropTypes> = ({ name, value, tabIndex, onSelect, isExpanded }) => {
+const InformationItem: FC<PropTypes> = ({ name, label, tabIndex, onSelect, isExpanded }) => {
 	const config = useConfig();
-	const expandFull = config.INFORMATION.EXPAND_TEXT.FULL;
-	const expandSmall = config.INFORMATION.EXPAND_TEXT.SMALL;
+	const expandFull = config.information.expandText.full;
+	const expandSmall = config.information.expandText.small;
 	return (
 		<button
 			type="button"
@@ -28,7 +28,7 @@ const InformationItem: FC<PropTypes> = ({ name, value, tabIndex, onSelect, isExp
 					width > 1000 && (
 						<Fragment>
 							<span className={bem("divider")} />
-							<span className={bem("text")}>{value}</span>
+							<span className={bem("text")}>{label}</span>
 						</Fragment>
 					)
 				}
@@ -47,7 +47,7 @@ const InformationItem: FC<PropTypes> = ({ name, value, tabIndex, onSelect, isExp
 
 interface PropTypes extends Pick<HTMLAttributes<HTMLInputElement>, "tabIndex"> {
 	name: string;
-	value: string;
+	label: string;
 	isExpanded: boolean;
 	onSelect: ReactEventHandler<HTMLButtonElement>;
 }

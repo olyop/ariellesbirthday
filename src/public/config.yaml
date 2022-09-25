@@ -1,26 +1,37 @@
-DATES:
-  RSVP: 2022-12-10T00:00:00+10:00
-  PARTY: 2023-01-21T13:00:00+10:00
+dates:
+  rsvp: 2022-12-10T00:00:00+10:00
+  party: 2023-01-21T13:00:00+10:00
 
-TITLE: Arielle's Thirtieth Birthday Party
+title: Arielle's Thirtieth<br/> Birthday Party
+pageTitle: Arielle's Thirtieth Birthday Party
+subTitle: Picnic in the park
 
-RSVP:
-  BUTTON:
-    ICON: event_available
-    TEXT: RSVP to the party
+rsvp:
+  button:
+    icon: event_available
+    text: RSVP to the party
 
-INFORMATION:
-  EXPAND_TEXT:
-    FULL: Find out more
-    SMALL: More
+information:
+  expandText:
+    full: Find out more
+    small: More
+  sections:
+    - name: Where
+      label: Centennial Parklands
+      paragraphs:
+        - The party will take place at Centennial Park. The exact location can be seen below in Google Maps.
+    - name: When
+      label: Saturday, January 21, 2023
+      paragraphs:
+        - Information about the date of the party.
+    - name: Time
+      label: 2pm
+      paragraphs:
+        - Information about the time (or something else)
 
-  WHERE: Centennial Parklands
-  WHEN: Saturday, January 21, 2023
-  TIME: 2pm
-
-FOOTER:
-  CREATED_BY:
-    TEXT: Created by Oliver Plummer
-    LINK:
-      URL: https://olyop.com
-      TEXT: olyop.com
+footer:
+  createdBy:
+    text: Created by Oliver Plummer
+    link:
+      url: https://olyop.com
+      text: olyop.com

@@ -1,5 +1,6 @@
 import { createBEM } from "@oly_op/bem";
-import { createElement, FC } from "react";
+import ms from "ms";
+import { createElement, FC, useEffect, useRef } from "react";
 
 import { useConfig } from "../../config-content";
 
@@ -13,12 +14,39 @@ import "./index.scss";
 const bem = createBEM("Title");
 
 const Title: FC = () => {
-	const { TITLE } = useConfig();
+	const config = useConfig();
+	const titleRef = useRef<HTMLHeadingElement>(null);
+	const subTitleRef = useRef<HTMLHeadingElement>(null);
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			if (titleRef.current && subTitleRef.current) {
+				titleRef.current.style.opacity = "unset";
+				titleRef.current.style.marginLeft = "unset";
+				subTitleRef.current.style.opacity = "unset";
+				subTitleRef.current.style.marginRight = "unset";
+			}
+		}, ms("250ms"));
+		return () => clearTimeout(timeout);
+	});
 	return (
-		<header>
-			<div className={bem("", "Content")}>
-				<h1 className={bem("title", "HeadingOne")}>{TITLE}</h1>
-			</div>
+		<header className={bem("", "FlexColumnGap")}>
+			<h1
+				className={bem("main-title", "title", "HeadingOne")}
+				ref={titleRef}
+				style={{ marginLeft: 800, opacity: 0 }}
+				// eslint-disable-next-line react/no-danger
+				dangerouslySetInnerHTML={{
+					__html: config.title,
+				}}
+			/>
+			<div className={bem("divider")} />
+			<h2
+				className={bem("sub-title", "title", "HeadingFive")}
+				ref={subTitleRef}
+				style={{ marginRight: 800, opacity: 0 }}
+			>
+				{config.subTitle}
+			</h2>
 		</header>
 	);
 };

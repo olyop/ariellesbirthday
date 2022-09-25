@@ -1,35 +1,53 @@
 export interface ConfigContext {
-	DATES: {
-		RSVP: string;
-		PARTY: string;
-	};
+	dates: Dates;
+	title: string;
+	pageTitle: string;
+	subTitle: string;
+	rsvp: Rsvp;
+	information: Information;
+	footer: Footer;
+}
 
-	TITLE: string;
+interface Dates {
+	rsvp: Date;
+	party: Date;
+}
 
-	RSVP: {
-		BUTTON: {
-			ICON: string;
-			TEXT: string;
-		};
-	};
+interface Footer {
+	createdBy: CreatedBy;
+}
 
-	INFORMATION: {
-		EXPAND_TEXT: {
-			FULL: string;
-			SMALL: string;
-		};
-		WHERE: string;
-		WHEN: string;
-		TIME: string;
-	};
+interface CreatedBy {
+	text: string;
+	link: Link;
+}
 
-	FOOTER: {
-		CREATED_BY: {
-			TEXT: string;
-			LINK: {
-				TEXT: string;
-				URL: string;
-			};
-		};
-	};
+interface Link {
+	url: string;
+	text: string;
+}
+
+interface Information {
+	expandText: ExpandText;
+	sections: Section[];
+}
+
+interface ExpandText {
+	full: string;
+	small: string;
+}
+
+interface Section {
+	name: string;
+	label: string;
+	paragraphs: string[];
+}
+
+interface Rsvp {
+	button: Button;
+}
+
+interface Button {
+	icon: string;
+	text: string;
 }

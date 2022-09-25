@@ -1,14 +1,27 @@
 .Title {
-	display: flex;
-	justify-content: center;
+	align-items: center;
 	&__title {
-		font-weight: 300;
+		line-height: 1.2;
 		text-align: center;
-		font-size: 80rem;
-		width: 50%;
 		text-transform: lowercase;
+		transition-property: margin-left, margin-right, opacity;
+		transition-duration: 0.2s;
+	}
+	&__main-title {
+		font-weight: 300;
+		font-size: 80rem;
 		@media (max-width: 1360px) {
 			font-size: 70rem;
 		}
+	}
+	&__divider {
+		height: 4rem;
+		width: 300rem;
+		border-radius: 2rem;
+		background-color: var(--grey-color-200);
+	}
+	&__sub-title {
+		font-weight: 200;
+		font-style: italic;
 	}
 }

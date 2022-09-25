@@ -1,3 +1,10 @@
 {
-	"import": ["@oly_op/cspell-dict/cspell-ext.json"]
+	"import": ["@oly_op/cspell-dict/cspell-ext.json"],
+	"dictionaries": ["custom-words"],
+	"dictionaryDefinitions": [
+		{
+			"name": "custom-words",
+			"path": "./cspell-dict.txt"
+		}
+	]
 }

@@ -133,7 +133,7 @@ const webpackConfiguration: Configuration = {
 		}),
 		new HTMLWebpackPlugin({
 			minify: true,
-			title: config.TITLE,
+			title: config.pageTitle,
 			filename: "index.html",
 			template: SRC_ENTRY_PATH,
 		}),

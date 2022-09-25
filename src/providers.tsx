@@ -23,9 +23,13 @@ export const Config: FC<PropsWithChildren> = ({ children }) => {
 };
 
 const googleMapsRenderer: WrapperProps["render"] = status => {
-	if (status === Status.LOADING) return <p className="ParagraphTwo">{status} ..</p>;
-	if (status === Status.FAILURE) return <p className="ParagraphTwo">{status} ...</p>;
-	return <Fragment />;
+	if (status === Status.LOADING) {
+		return <p className="ParagraphOne">Loading...</p>;
+	} else if (status === Status.FAILURE) {
+		return <p className="ParagraphOne">Error loading map...</p>;
+	} else {
+		return <Fragment />;
+	}
 };
 
 export const GoogleMaps: FC<PropsWithChildren> = ({ children }) => (

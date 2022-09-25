@@ -50,12 +50,20 @@
 					z-index: 1;
 				}
 			}
-			&-donuts {
+			&-pancakes {
 				@media (min-width: 1001px) {
 					top: 0;
-					right: 11%;
-					width: 28%;
+					right: 24%;
+					width: 25%;
 					z-index: 3;
+				}
+			}
+			&-shiba {
+				@media (min-width: 1001px) {
+					top: 3%;
+					right: 2%;
+					width: 24%;
+					z-index: 2;
 				}
 			}
 		}

@@ -18,12 +18,12 @@
 		min-height: 500rem;
 		border-radius: var(--border-radius);
 		border-top-left-radius: 0;
-		padding: calc(var(--space-quart) + (var(--button-dimension) / 2) - 7rem);
+		padding: var(--space-half) var(--space-three-quart);
 		&-expanded {
 			background-color: var(--secondary-color);
 		}
-	}
-	&__location {
-		height: 400rem;
+		&-location {
+			height: 400rem;
+		}
 	}
 }

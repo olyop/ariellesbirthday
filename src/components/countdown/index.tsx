@@ -2,6 +2,8 @@ import { createBEM } from "@oly_op/bem";
 import ms from "ms";
 import { createElement, FC, Fragment, useEffect, useState } from "react";
 
+import { useConfig } from "../../config-content";
+
 import "./index.scss";
 
 const bem = createBEM("Countdown");
@@ -9,10 +11,8 @@ const bem = createBEM("Countdown");
 const numberFormatter = new Intl.NumberFormat();
 const relativeTimeFormatter = new Intl.RelativeTimeFormat();
 
-const PARTY_TIME = new Date("2023-01-21T13:00:00").getTime();
-// const PARTY_TIME = new Date(2022, 9 - 1, 25).getTime();
-
-const determineCountdown = () => {
+const determineCountdown = (timeToParty: Date) => {
+	const PARTY_TIME = timeToParty.getTime();
 	const TIME_TO_PARTY = PARTY_TIME - Date.now();
 	const SECONDS_TO_PARTY = parseInt((TIME_TO_PARTY / 1000).toFixed(0));
 	const HOURS_TO_PARTY = parseInt((SECONDS_TO_PARTY / 60 / 60).toFixed(0));
@@ -33,11 +33,12 @@ const determineCountdown = () => {
 };
 
 const Countdown: FC = () => {
-	const [countdown, setCountdown] = useState(determineCountdown());
+	const config = useConfig();
+	const [countdown, setCountdown] = useState(determineCountdown(config.dates.party));
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setCountdown(determineCountdown());
+			setCountdown(determineCountdown(config.dates.party));
 		}, ms("1s"));
 
 		return () => clearInterval(interval);

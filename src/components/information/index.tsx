@@ -1,9 +1,10 @@
 import { createBEM } from "@oly_op/bem";
 import { createElement, FC, Fragment, useState } from "react";
 
+import { Map, Marker } from "../google-maps";
 import InformationItem from "./item";
 import { GoogleMaps } from "../../providers";
-import PartyLocationMap from "./party-location-map";
+import { useConfig } from "../../config-content";
 
 import "./index.scss";
 
@@ -22,6 +23,7 @@ const determineInformationRightTop = (index: number) => {
 const bem = createBEM("Information");
 
 const Information: FC = () => {
+	const config = useConfig();
 	const [expanded, setExpanded] = useState<number>(0);
 
 	const handleExpandClick = (index: number) => () => {
@@ -32,45 +34,60 @@ const Information: FC = () => {
 		<section className={bem("")}>
 			<div className={bem("content", "Content")}>
 				<div className={bem("left")}>
-					<InformationItem
-						name="Where"
-						value="Centennial Parklands"
-						tabIndex={1}
-						isExpanded={expanded === 0}
-						onSelect={handleExpandClick(0)}
-					/>
-					<div className={bem(expanded === 0 && "left-gap")} />
-					<InformationItem
-						name="When"
-						value="Saturday, January 21, 2023"
-						tabIndex={2}
-						isExpanded={expanded === 1}
-						onSelect={handleExpandClick(1)}
-					/>
-					<div className={bem(expanded === 1 && "left-gap")} />
-					<InformationItem
-						name="Time"
-						tabIndex={3}
-						value="2pm"
-						isExpanded={expanded === 2}
-						onSelect={handleExpandClick(2)}
-					/>
-					<div className={bem(expanded === 2 && "left-gap")} />
+					{config.information.sections.map((section, index) => (
+						<Fragment key={section.name}>
+							<InformationItem
+								tabIndex={index + 1}
+								isExpanded={expanded === index}
+								name={section.name}
+								label={section.label}
+								onSelect={handleExpandClick(index)}
+							/>
+							<div className={bem(expanded === index && "left-gap")} />
+						</Fragment>
+					))}
 				</div>
 				<div
 					className={bem("right-expanded", "right", "FlexColumnGapHalf")}
 					style={{ marginTop: determineInformationRightTop(expanded) }}
 				>
+					{config.information.sections[expanded]?.paragraphs.map(paragraph => (
+						<p key={paragraph} className="ParagraphOne">
+							{paragraph}
+						</p>
+					))}
 					{expanded === 0 && (
-						<Fragment>
-							<p className="ParagraphOne">
-								The party will take place at Centennial Park. The exact location can be seen below
-								in Google Maps.
-							</p>
-							<GoogleMaps>
-								<PartyLocationMap />
-							</GoogleMaps>
-						</Fragment>
+						<GoogleMaps>
+							<Map
+								zoom={18}
+								className={bem("right-location")}
+								fullscreenControl={false}
+								panControl={false}
+								controlSize={30}
+								mapTypeControl
+								streetViewControl={false}
+								zoomControlOptions={{
+									position: 11.0,
+								}}
+								mapTypeControlOptions={{
+									mapTypeIds: ["satellite", "roadmap"],
+									position: 11.0,
+									style: 1.0,
+								}}
+								mapTypeId="satellite"
+								center={{
+									lat: -33.901496,
+									lng: 151.241619,
+								}}
+							>
+								<Marker
+									position={{
+										lat: -33.901496,
+										lng: 151.241619,
+									}}
+								/>
+							</Map>
+						</GoogleMaps>
 					)}
 				</div>
 			</div>
