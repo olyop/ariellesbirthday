@@ -34,11 +34,9 @@ const Title: FC = () => {
 				className={bem("main-title", "title", "HeadingOne")}
 				ref={titleRef}
 				style={{ marginLeft: 800, opacity: 0 }}
-				// eslint-disable-next-line react/no-danger
-				dangerouslySetInnerHTML={{
-					__html: config.title,
-				}}
-			/>
+			>
+				{config.title}
+			</h1>
 			<div className={bem("divider")} />
 			<h2
 				className={bem("sub-title", "title", "HeadingFive")}

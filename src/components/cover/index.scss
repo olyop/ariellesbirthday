@@ -3,15 +3,18 @@
 		height: 525rem;
 		position: relative;
 		@media (max-width: 1150px) {
-			height: 430rem;
+			height: 600rem;
 		}
 		@media (max-width: 1000px) {
 			width: 100%;
-			height: 700rem;
+			height: auto;
 			display: grid;
 			position: unset;
 			gap: var(--space-half);
-			grid-template: repeat(2, 50%) / repeat(2, 50%);
+			grid-template: repeat(2, 300rem) 300rem / repeat(2, 1fr);
+			> &-cover:last-of-type {
+				grid-column: 1 / -1;
+			}
 		}
 		&-cover {
 			@media (min-width: 1001px) {
@@ -64,6 +67,9 @@
 					right: 2%;
 					width: 24%;
 					z-index: 2;
+				}
+				@media (max-width: 1000px) {
+					object-position: top;
 				}
 			}
 		}

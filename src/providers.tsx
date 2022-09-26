@@ -2,16 +2,16 @@ import { load } from "js-yaml";
 import { Status, Wrapper as GoogleMapsWrapper, WrapperProps } from "@googlemaps/react-wrapper";
 import { createElement, FC, Fragment, PropsWithChildren, useEffect, useState } from "react";
 
+import { Config as ConfigType } from "./config-type";
 import { ConfigProvider } from "./config-content";
-import { ConfigContext } from "./types";
 
 export const Config: FC<PropsWithChildren> = ({ children }) => {
-	const [config, setConfig] = useState<ConfigContext>();
+	const [config, setConfig] = useState<ConfigType>();
 
 	const handleConfigLoad = async () => {
 		const result = await fetch("/config.yaml");
 		const body = await result.text();
-		const yaml = (await load(body)) as ConfigContext;
+		const yaml = (await load(body)) as ConfigType;
 		setConfig(yaml);
 	};
 

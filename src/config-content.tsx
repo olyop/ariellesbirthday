@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-import { ConfigContext } from "./types";
+import { Config } from "./config-type";
 
 const createCtx = <A extends unknown | null>() => {
 	const ctx = createContext<A | undefined>(undefined);
@@ -12,4 +12,4 @@ const createCtx = <A extends unknown | null>() => {
 	return [useCtx, ctx.Provider] as const;
 };
 
-export const [useConfig, ConfigProvider] = createCtx<ConfigContext>();
+export const [useConfig, ConfigProvider] = createCtx<Config>();

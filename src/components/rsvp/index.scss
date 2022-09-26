@@ -1,0 +1,60 @@
+.RSVP {
+	&__modal {
+		width: 100vw;
+		height: 100vh;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		position: absolute;
+		visibility: hidden;
+		overflow: hidden;
+		z-index: 100;
+		transition: var(--transition-duration) opacity;
+		&-background {
+			width: 100%;
+			height: 100%;
+			z-index: 101;
+			position: absolute;
+			cursor: pointer;
+			filter: blur(0.1px);
+			background-color: rgba(#333, 0.4);
+		}
+		&-content {
+			top: 50%;
+			right: 100%;
+			z-index: 102;
+			width: 500rem;
+			position: absolute;
+			transform: translate(50%, -50%);
+			border-radius: var(--border-radius);
+			background-color: var(--background-color);
+			transition: var(--transition-duration) right;
+			@media (max-width: 700px) {
+				width: calc(100% - 2 * var(--space-double));
+			}
+			&-close {
+				--button-dimension: 36rem;
+				top: calc(var(--button-dimension) / 2 * -1);
+				right: calc(var(--button-dimension) / 2 * -1);
+				position: absolute;
+			}
+			&-title {
+				margin-bottom: 18rem;
+			}
+			&-fields {
+				text-align: center;
+				&-attending {
+					padding: 19rem 0;
+					&-paragraph {
+						font-size: 20rem;
+					}
+				}
+			}
+			&-buttons {
+				display: grid;
+				gap: var(--space-half);
+				grid-template-columns: 3fr 1fr;
+			}
+		}
+	}
+}

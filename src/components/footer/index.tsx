@@ -12,15 +12,27 @@ const Footer: FC = () => {
 	return (
 		<div className={bem("", "FlexColumnCenter")}>
 			<p className="ParagraphTwo">{config.footer.createdBy.text}</p>
-			<a
-				href={config.footer.createdBy.link.url}
-				className="Link ParagraphTwo"
-				rel="noreferrer"
-				target="_blank"
-				title={config.footer.createdBy.link.text}
-			>
-				{config.footer.createdBy.link.text}
-			</a>
+			<p>
+				<a
+					href={config.footer.createdBy.website.url}
+					className="Link ParagraphTwo"
+					rel="noreferrer"
+					target="_blank"
+					title={config.footer.createdBy.website.text}
+				>
+					{config.footer.createdBy.website.text}
+				</a>
+				<span className="ParagraphTwo PaddingLeftRightQuart">-</span>
+				<a
+					href={config.footer.sourceCode.url}
+					className="Link ParagraphTwo LowerCase"
+					rel="noreferrer"
+					target="_blank"
+					title={config.footer.sourceCode.text}
+				>
+					{config.footer.sourceCode.text}
+				</a>
+			</p>
 		</div>
 	);
 };

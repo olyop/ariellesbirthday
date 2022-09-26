@@ -9,15 +9,10 @@
 			"*": ["types/*"]
 		}
 	},
-	"include": [
-		"src",
-		"types",
-		"scripts",
-		"webpack.config.ts"
-	],
+	"include": ["src", "types", "scripts", "webpack.config.ts"],
 	"ts-node": {
 		"swc": true,
 		"files": true,
-    "require": ["tsconfig-paths/register"]
-  }
+		"require": ["tsconfig-paths/register"]
+	}
 }

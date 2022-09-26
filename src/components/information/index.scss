@@ -1,4 +1,5 @@
 .Information {
+	--expanded-color: var(--secondary-color);
 	--row-gap: var(--space-half);
 	--button-dimension: 36rem;
 	&__content {
@@ -11,7 +12,7 @@
 		row-gap: var(--row-gap);
 		grid-template: repeat(3, 1fr) / auto var(--space-quart);
 		&-gap {
-			background-color: var(--secondary-color);
+			background-color: var(--expanded-color);
 		}
 	}
 	&__right {
@@ -20,7 +21,7 @@
 		border-top-left-radius: 0;
 		padding: var(--space-half) var(--space-three-quart);
 		&-expanded {
-			background-color: var(--secondary-color);
+			background-color: var(--expanded-color);
 		}
 		&-location {
 			height: 400rem;

@@ -1,0 +1,69 @@
+.Input {
+	--image-width: 283rem;
+	padding: 0;
+	position: relative;
+	&__label {
+		top: -10rem;
+		z-index: 10;
+		left: 17rem;
+		padding: 3rem;
+		font-size: 12rem;
+		font-weight: 600;
+		position: absolute;
+		text-transform: uppercase;
+		border-radius: var(--border-radius);
+		transition: var(--transition-duration);
+		background-color: var(--elevated-color);
+		transition-property: color, border-radius;
+	}
+	&__image {
+		left: 50%;
+		top: 18rem;
+		position: absolute;
+		width: var(--image-width);
+		transform: translateX(-50%);
+		&-portrait {
+			height: var(--image-width);
+			aspect-ratio: 1;
+		}
+		&-landscape {
+			height: auto;
+			aspect-ratio: 16 / 9;
+		}
+	}
+	&__input {
+		width: 100%;
+		outline: none;
+		font-size: 16rem;
+		letter-spacing: 0.15rem;
+		padding: 22rem 18rem 18rem;
+		border-radius: var(--border-radius);
+		border: 2rem solid var(--border-color);
+		background-color: var(--elevated-color);
+		transition: var(--transition-duration);
+		transition-property: border-color, border-radius;
+		&::placeholder {
+			transition: var(--transition-duration) opacity;
+		}
+		&:hover,
+		&:focus {
+			border-radius: 0;
+			border-color: var(--primary-color);
+		}
+		&-image {
+			padding-bottom: 14rem;
+			padding-top: calc(var(--image-width) + 29rem);
+			&-landscape {
+				padding-top: calc(var(--image-width) + -94rem);
+			}
+		}
+	}
+	&:hover &__label,
+	&__input:focus &__label {
+		color: var(--primary-color);
+	}
+	&:hover &__outline,
+	&:hover &__input::placeholder {
+		opacity: 1;
+	}
+}

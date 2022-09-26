@@ -1,10 +1,11 @@
-import { createBEM } from "@oly_op/bem";
 import ms from "ms";
-import { createElement, FC, Fragment, useEffect, useState } from "react";
+import { createBEM } from "@oly_op/bem";
+import { createElement, FC, useEffect, useState } from "react";
 
 import { useConfig } from "../../config-content";
 
 import "./index.scss";
+import Section from "../section";
 
 const bem = createBEM("Countdown");
 
@@ -44,14 +45,10 @@ const Countdown: FC = () => {
 		return () => clearInterval(interval);
 	}, []);
 	return (
-		<section>
-			<div className="Content">
-				<p className={bem("", "ParagraphOneBold")}>
-					<Fragment>Party </Fragment>
-					{countdown}
-				</p>
-			</div>
-		</section>
+		<Section id="countdown" contentClassName="FlexColumnGapHalf">
+			<p className={bem("", "ParagraphTwo")}>{config.countdown.text}</p>
+			<p className={bem("", "ParagraphOneBold")}>{countdown}</p>
+		</Section>
 	);
 };
 

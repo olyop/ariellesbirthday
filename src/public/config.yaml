@@ -1,15 +1,50 @@
+title: Arielle's Thirtieth Birthday Party
+description: Arielle's Thirtieth Birthday Party
+subTitle: Picnic in the park
+
 dates:
   rsvp: 2022-12-10T00:00:00+10:00
   party: 2023-01-21T13:00:00+10:00
 
-title: Arielle's Thirtieth<br/> Birthday Party
-pageTitle: Arielle's Thirtieth Birthday Party
-subTitle: Picnic in the park
+blurb:
+  title: Blurb
+  paragraphs:
+    - Paragraph One
+    - Paragraph Two
 
 rsvp:
-  button:
+  open:
     icon: event_available
-    text: RSVP to the party
+    label: RSVP to the Party
+  modal:
+    title: RSVP
+    closeButton:
+      icon: close
+      label: Close
+    forms:
+      name:
+        nextButton:
+          icon: arrow_forward_ios
+          label: Next
+      isAttending:
+        paragraphs:
+          - Are you attending?
+        yesButton:
+          icon: arrow_forward_ios
+          label: Yes
+        noButton:
+          icon: close
+          label: No
+      notAttending:
+        paragraphs:
+          - Whoops
+        submitButton:
+          icon: arrow_back
+          label: Close
+      attending:
+        submitButton:
+          icon: send
+          label: Submit
 
 information:
   expandText:
@@ -29,9 +64,15 @@ information:
       paragraphs:
         - Information about the time (or something else)
 
+countdown:
+  text: Countdown to party
+
 footer:
   createdBy:
     text: Created by Oliver Plummer
-    link:
-      url: https://olyop.com
+    website:
       text: olyop.com
+      url: https://olyop.com
+  sourceCode:
+    text: Source Code
+    url: https://github.com/olyop/ariellesbirthday

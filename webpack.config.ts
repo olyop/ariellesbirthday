@@ -4,16 +4,17 @@ import { readFileSync } from "node:fs";
 import DotenvPlugin from "dotenv-webpack";
 import { readFile } from "node:fs/promises";
 import ESLintPlugin from "eslint-webpack-plugin";
-import webpack, { Configuration, WebpackPluginInstance } from "webpack";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import HTMLWebpackPlugin from "html-webpack-plugin";
+import { Options as TSLoaderOptions } from "ts-loader";
 import StylelintPlugin from "stylelint-webpack-plugin";
 import CompressionPlugin from "compression-webpack-plugin";
 import MiniCSSExtractPlugin from "mini-css-extract-plugin";
 import CSSMinimizerPlugin from "css-minimizer-webpack-plugin";
+import webpack, { Configuration, WebpackPluginInstance } from "webpack";
 import { Configuration as DevServerConfiguration } from "webpack-dev-server";
 
-import { ConfigContext } from "./src/types";
+import { Config } from "./src/config-type";
 
 import packageDotJSON from "./package.json" assert { type: "json" };
 
@@ -28,7 +29,7 @@ const SRC_CONFIG_PATH = path.join(SRC_PUBLIC_PATH, "config.yaml");
 
 const BUILD_PATH = path.join(ROOT_PATH, "build");
 
-const config = (await load((await readFile(SRC_CONFIG_PATH)).toString())) as ConfigContext;
+const config = (await load((await readFile(SRC_CONFIG_PATH)).toString())) as Config;
 
 const HTTPS_OPTIONS = {
 	type: "https",
@@ -52,6 +53,10 @@ const devServer: DevServerConfiguration = {
 };
 
 const firstCSSLoader = IS_DEVELOPMENT ? "style-loader" : MiniCSSExtractPlugin.loader;
+
+const tsLoaderOptions: Partial<TSLoaderOptions> = {
+	onlyCompileBundledFiles: true,
+};
 
 const developmentPlugins: WebpackPluginInstance[] = [
 	new CompressionPlugin(),
@@ -82,7 +87,8 @@ const webpackConfiguration: Configuration = {
 	},
 	resolve: {
 		symlinks: false,
-		extensions: [".js", ".ts", ".tsx"],
+		fullySpecified: false,
+		extensions: [".js", ".ts", ".tsx", ".css"],
 	},
 	watchOptions: {
 		ignored: "/node_modules/",
@@ -95,9 +101,7 @@ const webpackConfiguration: Configuration = {
 			{
 				test: /\.tsx?$/,
 				loader: "ts-loader",
-				options: {
-					onlyCompileBundledFiles: true,
-				},
+				options: tsLoaderOptions,
 			},
 			{
 				test: /\.css$/,
@@ -133,7 +137,7 @@ const webpackConfiguration: Configuration = {
 		}),
 		new HTMLWebpackPlugin({
 			minify: true,
-			title: config.pageTitle,
+			title: config.title,
 			filename: "index.html",
 			template: SRC_ENTRY_PATH,
 		}),

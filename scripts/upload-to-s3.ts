@@ -7,7 +7,8 @@ import {
 
 import mime from "mime";
 import path from "node:path";
-import fs from "node:fs/promises";
+import readdirp from "readdirp";
+import { readFile } from "node:fs/promises";
 
 console.log("Starting");
 
@@ -23,7 +24,7 @@ const s3 = new S3({
 	},
 });
 
-console.log("Getting current objects");
+console.log("Getting current s3 objects");
 
 const listObjectsOutput = await s3.send(
 	new ListObjectsV2Command({
@@ -32,7 +33,7 @@ const listObjectsOutput = await s3.send(
 );
 
 if (listObjectsOutput.Contents) {
-	console.log("Deleting current files");
+	console.log("Deleting current s3 objects");
 
 	await s3.send(
 		new DeleteObjectsCommand({
@@ -44,16 +45,10 @@ if (listObjectsOutput.Contents) {
 	);
 }
 
-console.log("Reading build files");
-
-const files = await fs.readdir(BUILD_PATH);
-
-console.log("Uploading build files");
-
-for (const Key of files) {
+const uploadFile = async (Key: string) => {
 	const filePath = path.join(BUILD_PATH, Key);
-	console.log(`Uploading file: ${filePath}`);
-	const Body = await fs.readFile(filePath);
+	console.log(`Uploading file to s3: ${filePath}`);
+	const Body = await readFile(filePath);
 	const ContentType = mime.getType(filePath);
 	if (ContentType) {
 		await s3.send(
@@ -65,4 +60,10 @@ for (const Key of files) {
 			}),
 		);
 	}
+};
+
+console.log("Uploading build files");
+
+for await (const entry of readdirp(BUILD_PATH)) {
+	await uploadFile(entry.path);
 }
