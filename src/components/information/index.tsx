@@ -51,7 +51,7 @@ const Information: FC = () => {
 				className={bem("right-expanded", "right", "FlexColumnGapHalf")}
 				style={{ marginTop: determineInformationRightTop(expanded) }}
 			>
-				{config.information.sections[expanded]?.paragraphs.map(paragraph => (
+				{config.information.sections[expanded]?.paragraphs?.map(paragraph => (
 					<p key={paragraph} className="ParagraphOne">
 						{paragraph}
 					</p>

@@ -2,6 +2,7 @@
 	"extends": "@oly_op/tsconfig/tsconfig.json",
 	"compilerOptions": {
 		"jsx": "react",
+		"lib": ["ESNext", "DOM"],
 		"jsxFactory": "createElement",
 		"exactOptionalPropertyTypes": false,
 		"baseUrl": "./",

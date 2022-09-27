@@ -25,6 +25,7 @@ const SRC_PATH = path.join(ROOT_PATH, "src");
 const SRC_PUBLIC_PATH = path.join(SRC_PATH, "public");
 const SRC_ROOT_PATH = path.join(SRC_PATH, "index.tsx");
 const SRC_ENTRY_PATH = path.join(SRC_PATH, "index.html");
+const TSCONFIG_PATH = path.join(ROOT_PATH, "tsconfig.json");
 const SRC_CONFIG_PATH = path.join(SRC_PUBLIC_PATH, "config.yaml");
 
 const BUILD_PATH = path.join(ROOT_PATH, "build");
@@ -55,6 +56,7 @@ const devServer: DevServerConfiguration = {
 const firstCSSLoader = IS_DEVELOPMENT ? "style-loader" : MiniCSSExtractPlugin.loader;
 
 const tsLoaderOptions: Partial<TSLoaderOptions> = {
+	configFile: TSCONFIG_PATH,
 	onlyCompileBundledFiles: true,
 };
 

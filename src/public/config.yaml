@@ -23,6 +23,10 @@ rsvp:
       label: Close
     forms:
       name:
+        inputs:
+          name:
+            label: Name
+            placeholder: Please enter you're name
         nextButton:
           icon: arrow_forward_ios
           label: Next
@@ -37,11 +41,22 @@ rsvp:
           label: No
       notAttending:
         paragraphs:
-          - Whoops
+          - That's too bad!
+          - Hit submit to let us know
         submitButton:
+          icon: send
+          label: Submit
+        closeButton:
           icon: arrow_back
           label: Close
       attending:
+        paragraphs:
+          - Woohoo!
+          - Please fill out the form to let us know!
+        inputs:
+          name:
+            label: Name
+            placeholder: Name
         submitButton:
           icon: send
           label: Submit

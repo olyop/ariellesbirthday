@@ -1,34 +1,27 @@
 import { createBEM } from "@oly_op/bem";
 import Button from "@oly_op/react-button";
-import { createElement, FC, Fragment, useState } from "react";
+import { createElement, FC, Fragment, useEffect, useState } from "react";
 
+import { useKeyPress } from "./key-press";
 import Input, { InputChange } from "../input";
 import { useConfig } from "../../config-content";
 
 import "./index.scss";
+import Select from "../select";
 
 const bem = createBEM("RSVP");
 
-const NameInput: FC<{ value: string; onChange: InputChange }> = ({ value, onChange }) => (
-	<Input
-		name="name"
-		inputID="name"
-		tabIndex={0}
-		value={value}
-		onChange={onChange}
-		placeholder="Name"
-	/>
-);
-
 const RSVP: FC = () => {
 	const config = useConfig();
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const escapePress = useKeyPress("Escape");
+	const [isModalOpen, setIsModalOpen] = useState(process.env.NODE_ENV === "development");
 
 	const [onNameForm, setOnNameForm] = useState(true);
 	const [onAttendingForm, setOnAttendingForm] = useState(false);
 	const [notAttendingForm, setNotAttendingForm] = useState(false);
 
 	const [name, setName] = useState("");
+	const [notes, setNotes] = useState("");
 	const [attending, setAttending] = useState(false);
 
 	const handleModalOpen = () => {
@@ -43,6 +36,12 @@ const RSVP: FC = () => {
 		setName("");
 		setAttending(false);
 	};
+
+	useEffect(() => {
+		if (escapePress) {
+			handleModalClose();
+		}
+	}, [escapePress]);
 
 	const handleOnNameFormNext = () => {
 		setOnNameForm(false);
@@ -70,6 +69,12 @@ const RSVP: FC = () => {
 		}
 	};
 
+	const handleNotesChange: InputChange = value => {
+		if (value.length < 30) {
+			setNotes(value);
+		}
+	};
+
 	return (
 		<Fragment>
 			<Button
@@ -88,6 +93,7 @@ const RSVP: FC = () => {
 					onKeyDown={handleModalClose}
 				/>
 				<div
+					aria-modal={isModalOpen}
 					className={bem("modal-content", "Padding FlexColumnGap")}
 					style={{ right: isModalOpen ? "50%" : 0 }}
 				>
@@ -104,8 +110,33 @@ const RSVP: FC = () => {
 						<div className="FlexColumnGap">
 							{onNameForm && (
 								<Fragment>
-									<NameInput value={name} onChange={handleNameChange} />
+									{config.rsvp.modal.forms.name.paragraphs && (
+										<div className={bem("modal-content-fields-attending")}>
+											{config.rsvp.modal.forms.name.paragraphs.map(paragraph => (
+												<p
+													key={paragraph}
+													className={bem(
+														"modal-content-fields-attending-paragraph",
+														"modal-content-fields-text",
+														"ParagraphOneBold",
+													)}
+												>
+													{paragraph}
+												</p>
+											))}
+										</div>
+									)}
+									<Input
+										name={config.rsvp.modal.forms.name.inputs.name.label}
+										inputID={config.rsvp.modal.forms.name.inputs.name.label}
+										tabIndex={1}
+										value={name}
+										onChange={handleNameChange}
+										placeholder={config.rsvp.modal.forms.name.inputs.name.placeholder}
+									/>
 									<Button
+										tabIndex={2}
+										disabled={name === ""}
 										rightIcon={config.rsvp.modal.forms.name.nextButton.icon}
 										text={config.rsvp.modal.forms.name.nextButton.label}
 										onClick={handleOnNameFormNext}
@@ -114,28 +145,32 @@ const RSVP: FC = () => {
 							)}
 							{onAttendingForm && !onNameForm && (
 								<Fragment>
-									<div className={bem("modal-content-fields-attending")}>
-										{config.rsvp.modal.forms.isAttending.paragraphs.map(paragraph => (
-											<p
-												key={paragraph}
-												className={bem(
-													"modal-content-fields-attending-paragraph",
-													"modal-content-fields-text",
-													"ParagraphOneBold",
-												)}
-											>
-												{paragraph}
-											</p>
-										))}
-									</div>
+									{config.rsvp.modal.forms.isAttending.paragraphs && (
+										<div className={bem("modal-content-fields-attending")}>
+											{config.rsvp.modal.forms.isAttending.paragraphs.map(paragraph => (
+												<p
+													key={paragraph}
+													className={bem(
+														"modal-content-fields-attending-paragraph",
+														"modal-content-fields-text",
+														"ParagraphOneBold",
+													)}
+												>
+													{paragraph}
+												</p>
+											))}
+										</div>
+									)}
 									<div className={bem("modal-content-buttons")}>
 										<Button
+											tabIndex={1}
 											text={config.rsvp.modal.forms.isAttending.yesButton.label}
 											rightIcon={config.rsvp.modal.forms.isAttending.yesButton.icon}
 											onClick={handleOnAtteningFormYes}
 										/>
 										<Button
 											transparent
+											tabIndex={2}
 											icon={config.rsvp.modal.forms.isAttending.noButton.icon}
 											text={config.rsvp.modal.forms.isAttending.noButton.label}
 											onClick={handleOnAtteningFormNo}
@@ -145,8 +180,43 @@ const RSVP: FC = () => {
 							)}
 							{notAttendingForm && !onNameForm && !onAttendingForm && (
 								<Fragment>
+									{config.rsvp.modal.forms.notAttending.paragraphs && (
+										<div className={bem("modal-content-fields-attending")}>
+											{config.rsvp.modal.forms.notAttending.paragraphs.map(paragraph => (
+												<p
+													key={paragraph}
+													className={bem(
+														"modal-content-fields-attending-paragraph",
+														"modal-content-fields-text",
+														"ParagraphOneBold",
+													)}
+												>
+													{paragraph}
+												</p>
+											))}
+										</div>
+									)}
+									<div className="FlexColumnGapQuart">
+										<Button
+											tabIndex={1}
+											icon={config.rsvp.modal.forms.notAttending.submitButton.icon}
+											text={config.rsvp.modal.forms.notAttending.submitButton.label}
+											onClick={handleNotAttendingSubmit}
+										/>
+										<Button
+											transparent
+											tabIndex={2}
+											icon={config.rsvp.modal.forms.notAttending.closeButton.icon}
+											text={config.rsvp.modal.forms.notAttending.closeButton.label}
+											onClick={handleNotAttendingSubmit}
+										/>
+									</div>
+								</Fragment>
+							)}
+							{!onNameForm && !onAttendingForm && !notAttendingForm && (
+								<Fragment>
 									<div className={bem("modal-content-fields-attending")}>
-										{config.rsvp.modal.forms.notAttending.paragraphs.map(paragraph => (
+										{config.rsvp.modal.forms.attending.paragraphs?.map(paragraph => (
 											<p
 												key={paragraph}
 												className={bem(
@@ -159,18 +229,43 @@ const RSVP: FC = () => {
 											</p>
 										))}
 									</div>
-									<Button
-										icon={config.rsvp.modal.forms.notAttending.submitButton.icon}
-										text={config.rsvp.modal.forms.notAttending.submitButton.label}
-										onClick={handleNotAttendingSubmit}
+									<Input
+										name={config.rsvp.modal.forms.name.inputs.name.label}
+										inputID={config.rsvp.modal.forms.name.inputs.name.label}
+										tabIndex={1}
+										value={name}
+										onChange={handleNameChange}
+										placeholder={config.rsvp.modal.forms.name.inputs.name.placeholder}
 									/>
-								</Fragment>
-							)}
-							{!onNameForm && !onAttendingForm && !notAttendingForm && (
-								<Fragment>
-									<NameInput value={name} onChange={handleNameChange} />
 									{attending}
+									<div className={bem("modal-content-fields-dogsandkids")}>
+										<Select
+											inputID="dogs"
+											name="# Dogs"
+											onChange={() => {}}
+											tabIndex={2}
+											value={["None"]}
+										/>
+										<Select
+											inputID="kids"
+											name="# Kids"
+											onChange={() => {}}
+											tabIndex={3}
+											value={["None"]}
+										/>
+									</div>
+									<Input
+										isTextArea
+										name="Notes"
+										inputID="notes"
+										tabIndex={4}
+										value={notes}
+										onChange={handleNotesChange}
+										placeholder="Notes"
+										inputClassName={bem("modal-content-fields-notes")}
+									/>
 									<Button
+										tabIndex={2}
 										icon={config.rsvp.modal.forms.attending.submitButton.icon}
 										text={config.rsvp.modal.forms.attending.submitButton.label}
 										onClick={handleModalClose}

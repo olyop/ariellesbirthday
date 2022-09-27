@@ -28,8 +28,15 @@ const Blurb: FC = () => {
 	const rsvpDaysTo = relativeTimeFormatter.format(DAYS_TO_RSVP, "days");
 
 	return (
-		<Section id="blurb" contentClassName={bem("", "Content")}>
-			<h2 className="HeadingFour MarginBottom">{config.blurb.title}</h2>
+		<Section id="blurb" contentClassName={bem("", "Content FlexColumnGap")}>
+			<h2 className={bem("title", "HeadingFour")}>{config.blurb.title}</h2>
+			<div className={bem("content", "FlexColumnGapHalf")}>
+				{config.blurb.paragraphs.map(paragraph => (
+					<p className="ParagraphOne" key={paragraph}>
+						{paragraph}
+					</p>
+				))}
+			</div>
 			<div className={bem("rsvp", "FlexColumnGapHalf")}>
 				<RSVP />
 				<p className={bem("rsvp-date", "ParagraphOneBold")}>

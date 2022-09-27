@@ -1,0 +1,15 @@
+.Select {
+	&__input {
+		cursor: pointer;
+	}
+	&__open {
+		position: absolute;
+		right: var(--space-quart);
+		top: 50%;
+		transform: translateY(-50%);
+		&:hover,
+		&:focus {
+			background-color: transparent !important;
+		}
+	}
+}

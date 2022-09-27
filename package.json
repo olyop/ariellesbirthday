@@ -18,7 +18,7 @@
 		"node": ">=16.7"
 	},
 	"volta": {
-		"node": "18.9.0",
+		"node": "18.9.1",
 		"npm": "8.19.2"
 	},
 	"scripts": {
@@ -35,7 +35,7 @@
 		"push": "git add -A && git commit -m \"Update\" && git push"
 	},
 	"devDependencies": {
-		"@aws-sdk/client-s3": "3.178.0",
+		"@aws-sdk/client-s3": "3.179.0",
 		"@oly_op/cspell-dict": "1.0.112",
 		"@oly_op/css-utilities": "2.0.77",
 		"@oly_op/eslint-config": "5.3.4",
@@ -51,14 +51,14 @@
 		"@types/lodash-es": "4.17.6",
 		"@types/mime": "3.0.1",
 		"@types/ms": "0.7.31",
-		"@types/node": "18.7.21",
+		"@types/node": "18.7.23",
 		"@types/react": "18.0.21",
 		"@types/react-dom": "18.0.6",
 		"@types/react-transition-group": "4.4.5",
 		"@types/webpack": "5.28.0",
 		"@types/webpack-env": "1.18.0",
 		"@types/write-file-webpack-plugin": "4.5.2",
-		"@typescript-eslint/eslint-plugin": "5.38.0",
+		"@typescript-eslint/eslint-plugin": "5.38.1",
 		"ajv": "8.11.0",
 		"compression-webpack-plugin": "10.0.0",
 		"copy-webpack-plugin": "11.0.0",

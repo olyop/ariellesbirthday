@@ -1,4 +1,10 @@
 .Blurb {
+	&__title {
+		text-align: center;
+	}
+	&__content {
+		align-items: center;
+	}
 	&__rsvp {
 		display: flex;
 		flex-direction: column;

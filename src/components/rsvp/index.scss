@@ -49,6 +49,14 @@
 						font-size: 20rem;
 					}
 				}
+				&-dogsandkids {
+					display: grid;
+					gap: var(--space-half);
+					grid-template-columns: 1fr 1fr;
+				}
+				&-notes {
+					height: 116rem;
+				}
 			}
 			&-buttons {
 				display: grid;

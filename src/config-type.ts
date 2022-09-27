@@ -10,94 +10,103 @@ export interface Config {
 	footer: Footer;
 }
 
-export interface Blurb {
+interface Blurb {
 	title: string;
 	paragraphs: string[];
 }
 
-export interface Countdown {
+interface Countdown {
 	text: string;
 }
 
-export interface Dates {
+interface Dates {
 	rsvp: Date;
 	party: Date;
 }
 
-export interface Footer {
+interface Footer {
 	createdBy: CreatedBy;
 	sourceCode: SourceCode;
 }
 
-export interface CreatedBy {
+interface CreatedBy {
 	text: string;
 	website: SourceCode;
 }
 
-export interface SourceCode {
+interface SourceCode {
 	text: string;
 	url: string;
 }
 
-export interface Information {
+interface Information {
 	expandText: ExpandText;
 	sections: Section[];
 }
 
-export interface ExpandText {
+interface ExpandText {
 	full: string;
 	small: string;
 }
 
-export interface Section {
+interface Section {
 	name: string;
 	label: string;
-	paragraphs: string[];
+	paragraphs?: string[];
 }
 
-export interface Rsvp {
+interface Rsvp {
 	open: Open;
 	modal: Modal;
 }
 
-export interface Modal {
+interface Modal {
 	title: string;
 	closeButton: Open;
 	forms: Forms;
 }
 
-export interface Open {
+interface Open {
 	icon: string;
 	label: string;
 }
 
-export interface Forms {
-	name: Name;
+interface Forms {
+	name: FormsName;
 	isAttending: IsAttending;
 	notAttending: NotAttending;
 	attending: Attending;
 }
 
-export interface IsAttending {
-	paragraphs: string[];
+interface Attending {
+	paragraphs?: string[];
+	inputs: Inputs;
+	submitButton: Open;
+}
+
+interface Inputs {
+	name: InputsName;
+}
+
+interface InputsName {
+	label: string;
+	placeholder: string;
+}
+
+interface IsAttending {
+	paragraphs?: string[];
 	yesButton: Open;
 	noButton: Open;
 }
 
-export interface NotAttending {
-	paragraphs: string[];
+interface FormsName {
+	paragraphs?: string[];
+	inputs: Inputs;
+	nextButton: Open;
+}
+
+interface NotAttending {
+	paragraphs?: string[];
 	submitButton: Open;
-}
-
-export interface Name {
-	nextButton: NextButton;
-}
-
-export interface NextButton {
-	icon: string;
-	label: string;
-}
-
-export interface Attending {
-	submitButton: Open;
+	closeButton: Open;
 }
