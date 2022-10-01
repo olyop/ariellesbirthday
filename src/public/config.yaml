@@ -1,3 +1,5 @@
+##### Metadata and configuration for the website #####
+
 title: Arielle's Thirtieth Birthday Party
 description: Arielle's Thirtieth Birthday Party
 subTitle: Picnic in the park
@@ -23,10 +25,9 @@ rsvp:
       label: Close
     forms:
       name:
-        inputs:
-          name:
-            label: Name
-            placeholder: Please enter you're name
+        name:
+          label: Name
+          placeholder: Please enter you're name
         nextButton:
           icon: arrow_forward_ios
           label: Next
@@ -34,15 +35,15 @@ rsvp:
         paragraphs:
           - Are you attending?
         yesButton:
-          icon: arrow_forward_ios
           label: Yes
+          icon: arrow_forward_ios
         noButton:
-          icon: close
           label: No
+          icon: close
       notAttending:
         paragraphs:
           - That's too bad!
-          - Hit submit to let us know
+          - Please hit submit to let us know
         submitButton:
           icon: send
           label: Submit
@@ -57,9 +58,34 @@ rsvp:
           name:
             label: Name
             placeholder: Name
+          dogs:
+            label: "# Dogs"
+            options:
+              - None
+              - 1
+              - 2
+              - 3
+          kids:
+            label: "# Kids"
+            options:
+              - None
+              - 1
+              - 2
+              - 3
+          notes:
+            label: Notes
+            placeholder: Notes
+        statement:
+          paragraphs:
+            - All actions will be taken to make the event as environmentally friendly as possible.
+            - All food served will be 100% plant based.
         submitButton:
           icon: send
           label: Submit
+      submitted:
+        thankYou: Thank you!
+        paragraphs:
+          - We look forward to seeing you
 
 information:
   expandText:
@@ -77,7 +103,7 @@ information:
     - name: Time
       label: 2pm
       paragraphs:
-        - Information about the time (or something else)
+        - Information about the time (or something else) and the afterparty.
 
 countdown:
   text: Countdown to party

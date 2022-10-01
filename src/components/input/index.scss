@@ -34,13 +34,15 @@
 	&__input {
 		width: 100%;
 		outline: none;
+		resize: vertical;
 		font-size: 16rem;
+		max-height: 300rem;
 		letter-spacing: 0.15rem;
 		padding: 22rem 18rem 18rem;
 		border-radius: var(--border-radius);
 		border: 2rem solid var(--border-color);
-		background-color: var(--elevated-color);
 		transition: var(--transition-duration);
+		background-color: var(--elevated-color);
 		transition-property: border-color, border-radius;
 		&::placeholder {
 			transition: var(--transition-duration) opacity;

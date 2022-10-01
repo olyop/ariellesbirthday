@@ -1,15 +1,45 @@
 .Select {
 	&__input {
 		cursor: pointer;
-	}
-	&__open {
-		position: absolute;
-		right: var(--space-quart);
-		top: 50%;
-		transform: translateY(-50%);
-		&:hover,
-		&:focus {
-			background-color: transparent !important;
+		&-open {
+			top: 50%;
+			position: absolute;
+			pointer-events: none;
+			right: var(--space-quart);
+			transform: translateY(-50%);
+			&:hover,
+			&:focus {
+				background-color: transparent !important;
+			}
+			&-icon {
+				color: var(--secondary-color) !important;
+			}
+		}
+		&-select {
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			opacity: 0;
+			cursor: pointer;
+			position: absolute;
+		}
+		&-options {
+			top: 13rem;
+			left: 13rem;
+			right: 13rem;
+			z-index: 100;
+			position: absolute;
+			&-option {
+				display: block;
+				cursor: pointer;
+				text-align: left;
+				border-bottom: var(--border-width) var(--border-style) var(--grey-color-300);
+				&:hover,
+				&:focus {
+					background-color: var(--grey-color-200);
+				}
+			}
 		}
 	}
 }

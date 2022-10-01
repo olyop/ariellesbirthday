@@ -3,15 +3,18 @@ import { createElement, StrictMode } from "react";
 
 import Main from "./main";
 import { Config } from "./providers";
+import ReCaptcha from "./google-recaptcha";
 
 const container = document.getElementById("Root");
 
 if (container) {
 	createRoot(container).render(
 		<StrictMode>
-			<Config>
-				<Main />
-			</Config>
+			<ReCaptcha>
+				<Config>
+					<Main />
+				</Config>
+			</ReCaptcha>
 		</StrictMode>,
 	);
 }

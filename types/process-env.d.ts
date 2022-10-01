@@ -20,5 +20,12 @@ declare namespace NodeJS {
 		AWS_S3_BUCKET_NAME: string;
 
 		GOOGLE_MAPS_API_KEY: string;
+
+		GOOGLE_RECAPTCHA_SITE_KEY: string;
+		GOOGLE_RECAPTCHA_SECRET_KEY: string;
+
+		ALGOLIA_SEARCH_INDEX_NAME: string;
+		ALGOLIA_APPLICATION_ID: string;
+		ALGOLIA_ADMIN_API_KEY: string;
 	}
 }

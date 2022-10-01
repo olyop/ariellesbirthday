@@ -1,6 +1,10 @@
 {
 	"extends": "@oly_op/stylelint-config",
 	"rules": {
-		"block-closing-brace-space-before": null
+		"block-closing-brace-space-before": null,
+		"scss/operator-no-newline-after": null,
+		"value-list-comma-newline-after": null,
+		"declaration-colon-newline-after": null,
+		"indentation": null
 	}
 }

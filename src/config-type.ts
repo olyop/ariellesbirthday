@@ -52,7 +52,7 @@ interface ExpandText {
 interface Section {
 	name: string;
 	label: string;
-	paragraphs?: string[];
+	paragraphs: string[];
 }
 
 interface Rsvp {
@@ -76,37 +76,55 @@ interface Forms {
 	isAttending: IsAttending;
 	notAttending: NotAttending;
 	attending: Attending;
+	submitted: Submitted;
 }
 
 interface Attending {
-	paragraphs?: string[];
+	paragraphs: string[];
 	inputs: Inputs;
+	statement: Statement;
 	submitButton: Open;
 }
 
 interface Inputs {
-	name: InputsName;
+	name: NotesClass;
+	dogs: Dogs;
+	kids: Dogs;
+	notes: NotesClass;
 }
 
-interface InputsName {
+interface Dogs {
+	label: string;
+	options: string[];
+}
+
+interface NotesClass {
 	label: string;
 	placeholder: string;
 }
 
+interface Statement {
+	paragraphs: string[];
+}
+
 interface IsAttending {
-	paragraphs?: string[];
+	paragraphs: string[];
 	yesButton: Open;
 	noButton: Open;
 }
 
 interface FormsName {
-	paragraphs?: string[];
-	inputs: Inputs;
+	name: NotesClass;
 	nextButton: Open;
 }
 
 interface NotAttending {
-	paragraphs?: string[];
+	paragraphs: string[];
 	submitButton: Open;
 	closeButton: Open;
+}
+
+interface Submitted {
+	thankYou: string;
+	paragraphs: string[];
 }

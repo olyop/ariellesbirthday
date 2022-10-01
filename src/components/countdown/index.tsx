@@ -44,6 +44,7 @@ const Countdown: FC = () => {
 
 		return () => clearInterval(interval);
 	}, []);
+
 	return (
 		<Section id="countdown" contentClassName="FlexColumnGapHalf">
 			<p className={bem("", "ParagraphTwo")}>{config.countdown.text}</p>

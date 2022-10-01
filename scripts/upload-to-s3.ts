@@ -1,14 +1,14 @@
+import mime from "mime";
+import limit from "p-limit";
+import path from "node:path";
+import readdirp from "readdirp";
+import fs, { ReadStream } from "node:fs";
 import {
 	S3,
 	PutObjectCommand,
 	ListObjectsV2Command,
 	DeleteObjectsCommand,
 } from "@aws-sdk/client-s3";
-
-import mime from "mime";
-import path from "node:path";
-import readdirp from "readdirp";
-import { readFile } from "node:fs/promises";
 
 console.log("Starting");
 
@@ -45,25 +45,33 @@ if (listObjectsOutput.Contents) {
 	);
 }
 
-const uploadFile = async (Key: string) => {
-	const filePath = path.join(BUILD_PATH, Key);
-	console.log(`Uploading file to s3: ${filePath}`);
-	const Body = await readFile(filePath);
-	const ContentType = mime.getType(filePath);
-	if (ContentType) {
-		await s3.send(
-			new PutObjectCommand({
-				Key,
-				Body,
-				Bucket,
-				ContentType,
-			}),
-		);
+const uploadToS3 = async (key: string, Body: ReadStream) => {
+	try {
+		const contentType = mime.getType(path.extname(key));
+		if (contentType) {
+			console.log(`Uploading file to s3: ${key} (${contentType})`);
+			await s3.send(
+				new PutObjectCommand({
+					Body,
+					Bucket,
+					Key: key,
+					ContentType: contentType,
+				}),
+			);
+		} else {
+			throw new TypeError("Invalid mime type");
+		}
+	} catch (error: unknown) {
+		console.error(error);
 	}
 };
 
-console.log("Uploading build files");
+const promiseLimitter = limit(200);
+const files = await readdirp.promise(BUILD_PATH);
 
-for await (const entry of readdirp(BUILD_PATH)) {
-	await uploadFile(entry.path);
-}
+const uploadToS3Thunk = (key: string, fullPath: string) =>
+	uploadToS3(key, fs.createReadStream(fullPath));
+
+await Promise.all(
+	files.map(({ path: fileName, fullPath }) => promiseLimitter(uploadToS3Thunk, fileName, fullPath)),
+);

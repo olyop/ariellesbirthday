@@ -1,2 +1,4 @@
-shiba
+paren
+pyro
 readdirp
+shiba

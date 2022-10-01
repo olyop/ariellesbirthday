@@ -15,34 +15,46 @@ const Input: FC<PropsWithChildren<InputPropTypes>> = ({
 	name,
 	value,
 	inputID,
+	onClick,
 	onChange,
 	children,
-	isTextArea = false,
 	className,
-	inputClassName,
+	disabled,
 	tabIndex,
 	placeholder,
-	disabled,
+	inputClassName,
+	isTextArea = false,
 }) => {
 	const handleInputChange: ChangeEventHandler<HTMLInputElement> = event => {
-		onChange(event.target.value);
+		if (onChange) {
+			onChange(event.target.value);
+		}
 	};
 	const handleTextAreaChange: ChangeEventHandler<HTMLTextAreaElement> = event => {
-		onChange(event.target.value);
+		if (onChange) {
+			onChange(event.target.value);
+		}
 	};
 	return (
-		<div className={bem(className, "")}>
-			<label children={name} htmlFor={inputID} className={bem("label")} />
+		<div
+			className={bem(className, "")}
+			onClick={onClick}
+			role="button"
+			tabIndex={tabIndex}
+			onKeyDown={onClick}
+		>
+			<label htmlFor={inputID} className={bem("label")}>
+				{name}
+			</label>
 			{isTextArea ? (
 				<textarea
-					rows={3}
 					id={inputID}
 					name={inputID}
 					tabIndex={tabIndex}
 					disabled={disabled}
 					placeholder={placeholder}
-					onChange={handleTextAreaChange}
 					className={bem(inputClassName, "input")}
+					onChange={onClick ? undefined : handleTextAreaChange}
 					value={value === null ? undefined : typeof value === "string" ? value : undefined}
 				/>
 			) : (
@@ -53,8 +65,8 @@ const Input: FC<PropsWithChildren<InputPropTypes>> = ({
 					tabIndex={tabIndex}
 					disabled={disabled}
 					placeholder={placeholder}
-					onChange={handleInputChange}
 					className={bem(inputClassName, "input")}
+					onChange={onClick ? undefined : handleInputChange}
 					value={value === null ? undefined : typeof value === "string" ? value : undefined}
 				/>
 			)}
@@ -65,7 +77,7 @@ const Input: FC<PropsWithChildren<InputPropTypes>> = ({
 
 type HTMLInputPropTypes = Omit<
 	InputHTMLAttributes<HTMLInputElement>,
-	"name" | "value" | "tabIndex" | "onChange" | "className"
+	"name" | "value" | "tabIndex" | "onChange" | "onClick" | "className"
 >;
 
 interface InputID {
@@ -79,8 +91,9 @@ export interface InputPropTypes extends InputID, HTMLInputPropTypes {
 	value: string;
 	tabIndex: number;
 	isTextArea?: boolean;
-	onChange: InputChange;
 	className?: BEMInput;
+	onClick?: () => void;
+	onChange?: InputChange;
 	inputClassName?: BEMInput;
 }
 

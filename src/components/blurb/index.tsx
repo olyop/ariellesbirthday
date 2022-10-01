@@ -10,8 +10,7 @@ import "./index.scss";
 const bem = createBEM("Blurb");
 
 const dateTimeFormatter = new Intl.DateTimeFormat(undefined, {
-	day: "numeric",
-	month: "long",
+	dateStyle: "full",
 });
 
 const relativeTimeFormatter = new Intl.RelativeTimeFormat();
