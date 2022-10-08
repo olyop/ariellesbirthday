@@ -6,8 +6,8 @@
 	--primary-color-dark: #338a3e;
 	--primary-color-light: #98ee99;
 
-	--secondary-color: #d7ccc8;
-	--secondary-color-dark: #a69b97;
+	--secondary-color: #d7ccc887;
+	--secondary-color-dark: #d7ccc8;
 	--secondary-color-light: #715a52;
 
 	--border-color: #d3b8ae;
@@ -19,7 +19,7 @@
 	--transition-duration: 0.4s;
 
 	--space: 30rem;
-	--line-height: 1.5;
+	--line-height: 1.6;
 }
 
 #Root {
@@ -27,8 +27,20 @@
 	background-color: var(--background-color);
 }
 
+.ParagraphOne {
+	@media (max-width: 800px) {
+		font-size: 20rem;
+	}
+}
+
 @media (max-width: 1360px) {
 	html {
 		font-size: 0.8px;
+	}
+}
+
+@media (max-width: 400px) {
+	html {
+		font-size: 0.7px;
 	}
 }

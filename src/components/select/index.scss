@@ -16,28 +16,11 @@
 			}
 		}
 		&-select {
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			opacity: 0;
-			cursor: pointer;
-			position: absolute;
-		}
-		&-options {
-			top: 13rem;
-			left: 13rem;
-			right: 13rem;
-			z-index: 100;
-			position: absolute;
 			&-option {
-				display: block;
-				cursor: pointer;
-				text-align: left;
-				border-bottom: var(--border-width) var(--border-style) var(--grey-color-300);
-				&:hover,
-				&:focus {
-					background-color: var(--grey-color-200);
+				padding: var(--space-half);
+				border-bottom: var(--border-width) var(--border-style) var(--border-color);
+				&:last-child {
+					border-bottom: 0;
 				}
 			}
 		}

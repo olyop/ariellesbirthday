@@ -4,11 +4,6 @@ import { createElement, FC, useEffect, useRef } from "react";
 
 import { useConfig } from "../../config-content";
 
-import "@oly_op/css-utilities/index.css";
-// eslint-disable-next-line import/extensions, import/no-unresolved
-import "@oly_op/react-button/index.css";
-import "../../index.scss";
-
 import "./index.scss";
 
 const bem = createBEM("Title");

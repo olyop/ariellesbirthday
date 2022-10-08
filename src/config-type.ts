@@ -2,21 +2,18 @@ export interface Config {
 	title: string;
 	description: string;
 	subTitle: string;
+	location: Location;
 	dates: Dates;
 	blurb: Blurb;
-	rsvp: Rsvp;
+	rsvp: RSVP;
 	information: Information;
 	countdown: Countdown;
 	footer: Footer;
 }
 
-interface Blurb {
-	title: string;
-	paragraphs: string[];
-}
-
-interface Countdown {
-	text: string;
+interface Location {
+	lat: number;
+	lng: number;
 }
 
 interface Dates {
@@ -24,107 +21,114 @@ interface Dates {
 	party: Date;
 }
 
-interface Footer {
-	createdBy: CreatedBy;
-	sourceCode: SourceCode;
+interface Blurb {
+	title: string;
+	catchLine: string;
+	paragraphs: string[];
+	emojis: string;
 }
 
-interface CreatedBy {
-	text: string;
-	website: SourceCode;
+interface RSVP {
+	open: Button;
+	modal: RSVPModal;
 }
 
-interface SourceCode {
-	text: string;
-	url: string;
+interface RSVPModal {
+	title: string;
+	closeButton: Button;
+	forms: RSVPForms;
+}
+
+interface RSVPForms {
+	name: RSVPFormName;
+	isAttending: RSVPFormIsAttending;
+	notAttending: RSVPFormNotAttending;
+	attending: RSVPFormAttending;
+	submitted: RSVPFormSubmitted;
+}
+
+interface RSVPFormName {
+	name: Input;
+	nextButton: Button;
+}
+
+interface RSVPFormIsAttending extends Paragraphs {
+	yesButton: Button;
+	noButton: Button;
+}
+
+interface RSVPFormNotAttending {
+	paragraphs: string[];
+	submitButton: Button;
+	closeButton: Button;
+}
+
+interface RSVPFormAttending extends Paragraphs {
+	inputs: {
+		name: Input;
+		dogs: Dropdown;
+		kids: Dropdown;
+		notes: Input;
+	};
+	statement: Paragraphs;
+	submitButton: Button;
+}
+
+interface RSVPFormSubmitted extends Paragraphs {
+	thankYou: string;
 }
 
 interface Information {
-	expandText: ExpandText;
-	sections: Section[];
+	expandText: {
+		full: string;
+		small: string;
+	};
+	sections: InformationSection[];
 }
 
-interface ExpandText {
-	full: string;
-	small: string;
-}
-
-interface Section {
+interface InformationSection extends Partial<Paragraphs> {
 	name: string;
 	label: string;
-	paragraphs: string[];
+	timeline?: Array<InformationTimeline>;
 }
 
-interface Rsvp {
-	open: Open;
-	modal: Modal;
+interface InformationTimeline {
+	time: string;
+	text: string;
 }
 
-interface Modal {
-	title: string;
-	closeButton: Open;
-	forms: Forms;
+interface Countdown {
+	text: string;
 }
 
-interface Open {
+interface Footer {
+	createdBy: {
+		text: string;
+		website: Website;
+	};
+	sourceCode: Website;
+}
+
+interface Button {
 	icon: string;
 	label: string;
 }
 
-interface Forms {
-	name: FormsName;
-	isAttending: IsAttending;
-	notAttending: NotAttending;
-	attending: Attending;
-	submitted: Submitted;
-}
-
-interface Attending {
-	paragraphs: string[];
-	inputs: Inputs;
-	statement: Statement;
-	submitButton: Open;
-}
-
-interface Inputs {
-	name: NotesClass;
-	dogs: Dogs;
-	kids: Dogs;
-	notes: NotesClass;
-}
-
-interface Dogs {
-	label: string;
-	options: string[];
-}
-
-interface NotesClass {
+interface Input {
 	label: string;
 	placeholder: string;
 }
 
-interface Statement {
-	paragraphs: string[];
+interface Dropdown {
+	label: string;
+	options: string[];
 }
 
-interface IsAttending {
-	paragraphs: string[];
-	yesButton: Open;
-	noButton: Open;
+interface Website {
+	text: string;
+	url: string;
 }
 
-interface FormsName {
-	name: NotesClass;
-	nextButton: Open;
-}
-
-interface NotAttending {
-	paragraphs: string[];
-	submitButton: Open;
-	closeButton: Open;
-}
-
-interface Submitted {
-	thankYou: string;
+interface Paragraphs {
 	paragraphs: string[];
 }

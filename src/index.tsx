@@ -8,7 +8,8 @@ import ReCaptcha from "./google-recaptcha";
 const container = document.getElementById("Root");
 
 if (container) {
-	createRoot(container).render(
+	const root = createRoot(container);
+	root.render(
 		<StrictMode>
 			<ReCaptcha>
 				<Config>

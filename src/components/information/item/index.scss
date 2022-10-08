@@ -5,10 +5,10 @@
 	align-items: center;
 	gap: var(--space-half);
 	border-radius: var(--border-radius);
-	grid-template-columns: 77rem 50rem 1fr 169rem;
+	grid-template-columns: 123rem 50rem 1fr;
+	padding: 0 var(--space-half) 0 var(--space);
 	transition: var(--transition-duration) background-color;
 	height: calc(var(--button-dimension) + var(--space-half));
-	padding: 0 var(--space-half) 0 var(--space);
 	@media (max-width: 1400px) {
 		grid-template-columns: 77rem 50rem 1fr min-content;
 	}
@@ -16,7 +16,13 @@
 		grid-template-columns: 1fr 1fr;
 	}
 	@media (max-width: 800px) {
+		font-size: 14rem;
+		font-weight: 800;
 		grid-template-columns: 1fr;
+		padding: var(--space-quart);
+		&__text {
+			margin-top: 3rem;
+		}
 	}
 	&__text {
 		font-weight: 700;

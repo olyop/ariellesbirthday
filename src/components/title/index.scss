@@ -14,12 +14,15 @@
 		@media (max-width: 1360px) {
 			font-size: 70rem;
 		}
+		@media (max-width: 650px) {
+			font-size: 60rem;
+		}
 	}
 	&__divider {
 		height: 4rem;
 		width: 300rem;
 		border-radius: 2rem;
-		background-color: var(--grey-color-200);
+		background-color: var(--primary-color);
 	}
 	&__sub-title {
 		font-weight: 200;

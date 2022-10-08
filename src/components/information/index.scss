@@ -10,13 +10,12 @@
 	&__left {
 		display: grid;
 		row-gap: var(--row-gap);
-		grid-template: repeat(3, 1fr) / auto var(--space-quart);
+		grid-template: repeat(3, 1fr) / auto var(--row-gap);
 		&-gap {
 			background-color: var(--expanded-color);
 		}
 	}
 	&__right {
-		min-height: 500rem;
 		border-radius: var(--border-radius);
 		border-top-left-radius: 0;
 		padding: var(--space-half) var(--space-three-quart);
@@ -24,7 +23,11 @@
 			background-color: var(--expanded-color);
 		}
 		&-location {
-			height: 400rem;
+			height: 500rem;
+		}
+		&-event-time {
+			font-size: 30rem;
+			font-weight: 700;
 		}
 	}
 }

@@ -49,7 +49,7 @@ const uploadToS3 = async (key: string, Body: ReadStream) => {
 	try {
 		const contentType = mime.getType(path.extname(key));
 		if (contentType) {
-			console.log(`Uploading file to s3: ${key} (${contentType})`);
+			console.log(`${key} (${contentType})`);
 			await s3.send(
 				new PutObjectCommand({
 					Body,
@@ -72,6 +72,10 @@ const files = await readdirp.promise(BUILD_PATH);
 const uploadToS3Thunk = (key: string, fullPath: string) =>
 	uploadToS3(key, fs.createReadStream(fullPath));
 
+console.log("Uploading files...");
+
 await Promise.all(
 	files.map(({ path: fileName, fullPath }) => promiseLimitter(uploadToS3Thunk, fileName, fullPath)),
 );
+
+console.log("Done");

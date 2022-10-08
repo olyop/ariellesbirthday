@@ -9,7 +9,7 @@ const Section: FC<PropsWithChildren<PropTypes>> = ({
 	contentClassName,
 	children,
 }) => (
-	<section id={id} className={bem(className, "PaddingTopBottomHalf")}>
+	<section id={id} className={bem(className)}>
 		<div className={bem(contentClassName, "Content")}>{children}</div>
 	</section>
 );

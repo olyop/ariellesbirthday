@@ -4,20 +4,34 @@ title: Arielle's Thirtieth Birthday Party
 description: Arielle's Thirtieth Birthday Party
 subTitle: Picnic in the park
 
+location:
+  lat: -33.901496
+  lng: 151.241619
+
 dates:
   rsvp: 2022-12-10T00:00:00+10:00
   party: 2023-01-21T13:00:00+10:00
 
 blurb:
-  title: Blurb
+  title: Information
+  catchLine: I would like to officially invite you to my 30th birthday!
   paragraphs:
-    - Paragraph One
-    - Paragraph Two
+    - Since I've been in Australia so long now, I think it's fitting to have a party!
+    - As many of you know, I don't plan to get married or have children so this will be the chance you get to join me for a fiesta!
+      I'm hoping it'll be a hot summer, so we'll be under the trees and near a pond to keep us cool.  In the case that the desired location is already taken Saturday morning, the party will take place as close to the original location but a new pin will be updated on map on below.
+    - Please RSVP asap (not me asap.plants) via the form below so I can organise enough delicious foods and get an idea of who is joining for a lovely afternoon.
+      You are more than welcome to bring dogs or any pets (if they are social) and of course friends and family members.
+    - This will be a ECO-friendly party where refusing to use single use products comes first and then second is byo and third is biodegradable.
+      All food provided should be finger foods. Only some plates and cutlery will be provided.
+      Pretty please bring your own drinking vessel. I’d appreciate no single use plastics or littering.
+    - Please check this website closer to the date for any updates or just message me directly if you have any questions.
+    - This is a day for all to enjoy, eating delicious food, outdoors with lovely humans and good vibes only. I look forward to celebrating my birthday with you!
+  emojis: 🌳😊💚
 
 rsvp:
   open:
     icon: event_available
-    label: RSVP to the Party
+    label: RSVP Here
   modal:
     title: RSVP
     closeButton:
@@ -96,14 +110,32 @@ information:
       label: Centennial Parklands
       paragraphs:
         - The party will take place at Centennial Park. The exact location can be seen below in Google Maps.
+          Click the link below for the pin location to follow on google maps.
+        - If you are driving you can park along the roads close to the picnic spot but Centennial
+          park has a one way round road around park so do follow google maps so you don't get lost.
+        - There are many public transport options, there are regular trams and buses nearby and
+          then you walk to the picnic location, again use google maps if you're not familiar with the area.
     - name: When
-      label: Saturday, January 21, 2023
+      label: 2pm on Saturday, January 21, 2023
       paragraphs:
-        - Information about the date of the party.
-    - name: Time
-      label: 2pm
-      paragraphs:
-        - Information about the time (or something else) and the afterparty.
+        - I have a feeling that the hottest 100 might fall on this day and if this is the case the
+          countdown will be live streamed and i will stay at the park until the countdown has finished.
+        - There will be kick ons in the park until sun down and potentially a warehose rave afterwards for those who are keen.
+    - name: What's on
+      label: Funs
+      timeline:
+        - time: 2pm
+          text: the party will start with snacks and socializing.
+        - time: 3pm
+          text: the games will begin so be ready to play! You're never too old to play!
+        - time: 4:30pm
+          text: cake be will cut and served
+        - time: 5pm
+          text: Norma will leave so she won't have to worry about driving in the dark.
+        - time: 5:30pm
+          text: the picnic is officially over and sunset hangs and chills begin
+        - time: 8pm
+          text: after sunset we will see where the night will take us.
 
 countdown:
   text: Countdown to party

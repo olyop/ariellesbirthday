@@ -1,16 +1,39 @@
 .Blurb {
+	width: 850rem;
+	margin-left: auto;
+	margin-right: auto;
+	align-items: center;
+	padding: var(--space);
+	border-radius: var(--space);
+	border: var(--border-width);
+	border-style: var(--border-style);
+	border-color: var(--grey-color-300);
+	background-color: var(--grey-color-100);
+	@media (max-width: 800px) {
+		width: auto;
+		border-left: 0;
+		border-right: 0;
+		border-radius: 0;
+		padding-left: var(--space-one-half);
+		padding-right: var(--space-one-half);
+	}
 	&__title {
 		text-align: center;
+		text-decoration: underline;
+	}
+	&__catchLine {
+		text-align: center;
+		font-weight: 700;
+		font-size: 26rem;
+		max-width: 450rem;
 	}
 	&__content {
 		align-items: center;
-	}
-	&__rsvp {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		&-date {
-			font-family: monospace;
+		&-paragraph {
+			text-align: center;
 		}
+	}
+	&__emojis {
+		font-size: 45rem;
 	}
 }

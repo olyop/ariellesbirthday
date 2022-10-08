@@ -1,5 +1,5 @@
 import { createBEM } from "@oly_op/bem";
-import { createElement, FC } from "react";
+import { createElement, FC, Fragment } from "react";
 
 import { useConfig } from "../../config-content";
 
@@ -10,9 +10,9 @@ const bem = createBEM("Footer");
 const Footer: FC = () => {
 	const config = useConfig();
 	return (
-		<div className={bem("", "FlexColumnCenter")}>
-			<p className="ParagraphTwo">{config.footer.createdBy.text}</p>
-			<p>
+		<footer className={bem("", "FlexColumnCenter")}>
+			<p className="ParagraphTwo">
+				<Fragment>Created by </Fragment>
 				<a
 					href={config.footer.createdBy.website.url}
 					className="Link ParagraphTwo"
@@ -20,20 +20,19 @@ const Footer: FC = () => {
 					target="_blank"
 					title={config.footer.createdBy.website.text}
 				>
-					{config.footer.createdBy.website.text}
-				</a>
-				<span className="ParagraphTwo PaddingLeftRightQuart">-</span>
-				<a
-					href={config.footer.sourceCode.url}
-					className="Link ParagraphTwo LowerCase"
-					rel="noreferrer"
-					target="_blank"
-					title={config.footer.sourceCode.text}
-				>
-					{config.footer.sourceCode.text}
+					Oliver Plummer
 				</a>
 			</p>
-		</div>
+			<a
+				href="https://github.com/olyop/ariellesbirthday"
+				className="Link ParagraphTwo LowerCase"
+				rel="noreferrer"
+				target="_blank"
+				title="Source Code"
+			>
+				Source Code
+			</a>
+		</footer>
 	);
 };
 
