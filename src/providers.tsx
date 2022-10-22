@@ -9,7 +9,7 @@ export const Config: FC<PropsWithChildren> = ({ children }) => {
 	const [config, setConfig] = useState<ConfigType>();
 
 	const handleConfigLoad = async () => {
-		const result = await fetch("/config.yaml");
+		const result = await fetch("/config.yaml", { headers: { "Cache-Control": "no-store" } });
 		const body = await result.text();
 		const yaml = (await load(body)) as ConfigType;
 		setConfig(yaml);

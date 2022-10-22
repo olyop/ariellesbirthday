@@ -11,28 +11,33 @@ const Cover: FC = () => (
 	<Section id="cover" className={bem("")} contentClassName="Content">
 		<div className={bem("images")}>
 			<img
-				alt="Arielle with Cow"
-				src="/images/arielle-cow.jpg"
-				className={bem("images-cover-cow", "images-cover")}
+				src="/images/arielle-baby.jpg"
+				alt="Arielle as a baby"
+				title="Arielle being dirty"
+				className={bem("images-cover-baby", "images-cover")}
 			/>
 			<img
-				alt="Arielle in River"
 				src="/images/arielle-river.jpg"
+				alt="Arielle next to a river"
+				title="Arielle somewhere near a river, probably overseas"
 				className={bem("images-cover-river", "images-cover")}
 			/>
 			<img
-				alt="Arielle Climbing"
-				src="/images/arielle-climbing.jpg"
-				className={bem("images-cover-climbing", "images-cover")}
+				src="/images/arielle-asian.jpg"
+				alt="Arielle in Asia"
+				title="Arielle living life"
+				className={bem("images-cover-asian", "images-cover")}
 			/>
 			<img
-				alt="Arielle with Pancakes"
 				src="/images/pancakes.jpg"
+				alt="Arielle's pancakes"
+				title="One of Arielles daily feasts"
 				className={bem("images-cover-pancakes", "images-cover")}
 			/>
 			<img
-				alt="Arielle with Shiba"
 				src="/images/arielle-shiba.jpg"
+				alt="Arielle with Shiba"
+				title="Arielle with her second favorite dog in the world"
 				className={bem("images-cover-shiba", "images-cover")}
 			/>
 		</div>

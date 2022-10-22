@@ -27,7 +27,8 @@
 	background-color: var(--background-color);
 }
 
-.ParagraphOne {
+.ParagraphOne,
+.ParagraphOneBold {
 	@media (max-width: 800px) {
 		font-size: 20rem;
 	}

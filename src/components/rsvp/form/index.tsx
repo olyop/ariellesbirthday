@@ -2,12 +2,22 @@ import ms from "ms";
 import { createBEM } from "@oly_op/bem";
 import Button from "@oly_op/react-button";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import { createElement, FC, Fragment, useCallback, useEffect, useRef, useState } from "react";
+import {
+	createElement,
+	FC,
+	Fragment,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+	ChangeEventHandler,
+} from "react";
 
 import Spinner from "./spinner";
 import Fireworks from "./fireworks";
 import { useKeyPress } from "./key-press";
 import { algoliaRSVPIndex } from "./algolia";
+import AddToCalender from "./add-to-calender";
 import { useConfig } from "../../../config-content";
 import Input, { InputChange, InputType } from "../../input";
 
@@ -15,7 +25,7 @@ import "./index.scss";
 
 const bem = createBEM("RSVPForm");
 
-const IS_MOBILE = /Mobi|Android/i.test(navigator.userAgent);
+const IS_MOBILE = /mobi|android/i.test(navigator.userAgent);
 
 const enum Forms {
 	NAME,
@@ -39,22 +49,18 @@ const RSVPForm: FC = () => {
 	const [form, setForm] = useState(Forms.NAME);
 
 	const [name, setName] = useState("");
-	const [notes, setNotes] = useState("");
-	const [attending, setAttending] = useState(false);
+	const [emailAddress, setEmailAddress] = useState("");
 	const [dogs, setDogs] = useState(DEFAULT_OPTION_DOGS);
 	const [kids, setKids] = useState(DEFAULT_OPTION_KIDS);
+	const [notes, setNotes] = useState("");
+	const [attending, setAttending] = useState(false);
+	const [agreements, setAgreements] = useState([false, false]);
 
 	const sessionTime = useRef(0);
 	const [loading, setLoading] = useState(false);
+
 	const { executeRecaptcha } = useGoogleReCaptcha();
 	const [reCaptchaToken, setReCaptchaToken] = useState<string | null>(null);
-
-	const handleReCaptchaVerify = useCallback(async () => {
-		if (executeRecaptcha) {
-			const token = await executeRecaptcha("rsvp");
-			setReCaptchaToken(token);
-		}
-	}, [executeRecaptcha]);
 
 	const handleModalOpen = () => {
 		setIsModalOpen(true);
@@ -90,8 +96,17 @@ const RSVPForm: FC = () => {
 		setForm(Forms.NOT_ATTENDING);
 	};
 
+	const handleIsNotAttendingBack = () => {
+		setAttending(false);
+		setForm(Forms.IS_ATTENDING);
+	};
+
 	const handleNameChange: InputChange = value => {
 		setName(value);
+	};
+
+	const handleEmailAddressChange: InputChange = value => {
+		setEmailAddress(value);
 	};
 
 	const handleDogsChange: InputChange = value => {
@@ -106,19 +121,34 @@ const RSVPForm: FC = () => {
 		setNotes(value);
 	};
 
+	const handleAgreementCheck =
+		(index: number): ChangeEventHandler<HTMLInputElement> =>
+		event => {
+			setAgreements(prevState => {
+				const newState = [...prevState];
+				newState[index] = event.target.checked;
+				return newState;
+			});
+		};
+
 	const submitForm = async () => {
 		try {
+			const EPOCH_NOW = Date.now();
+
 			const baseForm = {
-				name,
+				name: name.trim(),
+				notes: notes.trim(),
 				isMobile: IS_MOBILE,
-				objectID: Date.now(),
+				objectID: EPOCH_NOW,
 				userAgent: navigator.userAgent,
 				attending: attending ? "Yes" : "No",
 				sessionTime: `${sessionTime.current} seconds`,
-				dateSubmitted: new Date(Date.now()).toISOString(),
+				dateSubmitted: new Date(EPOCH_NOW).toISOString(),
 			};
 
-			const data = attending ? { ...baseForm, dogs, kids, notes } : baseForm;
+			const data = attending
+				? { ...baseForm, dogs, kids, emailAddress: emailAddress.trim() }
+				: baseForm;
 
 			await algoliaRSVPIndex.saveObject(data);
 
@@ -129,7 +159,7 @@ const RSVPForm: FC = () => {
 			if (attending) {
 				setForm(Forms.SUBMIT);
 			}
-		} catch (e) {
+		} catch {
 			setForm(Forms.ERROR);
 		} finally {
 			setLoading(false);
@@ -140,11 +170,32 @@ const RSVPForm: FC = () => {
 		}
 	};
 
+	const canSubmitAttending =
+		name !== "" &&
+		name.length < 60 &&
+		emailAddress !== "" &&
+		emailAddress.length < 60 &&
+		reCaptchaToken &&
+		agreements[0] &&
+		agreements[1];
+
+	const canSubmitNotAttending = name !== "" && name.length < 60 && reCaptchaToken;
+
 	const handleSubmit = () => {
-		if (name !== "" && name.length < 60 && reCaptchaToken) {
+		if (
+			(form === Forms.ATTENDING && canSubmitAttending) ||
+			(form === Forms.NOT_ATTENDING && canSubmitNotAttending)
+		) {
 			setLoading(true);
 		}
 	};
+
+	const handleReCaptchaVerify = useCallback(async () => {
+		if (executeRecaptcha) {
+			const token = await executeRecaptcha("rsvp");
+			setReCaptchaToken(token);
+		}
+	}, [executeRecaptcha]);
 
 	useEffect(() => {
 		if (loading) {
@@ -161,6 +212,10 @@ const RSVPForm: FC = () => {
 	useEffect(() => {
 		void handleReCaptchaVerify();
 	}, [handleReCaptchaVerify]);
+
+	useEffect(() => {
+		void handleReCaptchaVerify();
+	}, [attending]);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -182,8 +237,8 @@ const RSVPForm: FC = () => {
 				<div
 					role="presentation"
 					className={bem("modal-background")}
-					onClick={handleModalClose}
-					onKeyDown={handleModalClose}
+					onClick={form === Forms.NOT_ATTENDING ? undefined : handleModalClose}
+					onKeyDown={form === Forms.NOT_ATTENDING ? undefined : handleModalClose}
 				/>
 				<div
 					aria-modal={isModalOpen}
@@ -291,14 +346,37 @@ const RSVPForm: FC = () => {
 															))}
 														</div>
 													)}
-													{reCaptchaToken && (
+													<Input
+														type={InputType.TEXTAREA}
+														inputID="notes"
+														tabIndex={4}
+														value={notes}
+														maxLength={300}
+														onChange={handleNotesChange}
+														inputClassName={bem("modal-content-fields-notes")}
+														name={config.rsvp.modal.forms.notAttending.inputs.notes.label}
+														placeholder={
+															config.rsvp.modal.forms.notAttending.inputs.notes.placeholder
+														}
+													/>
+													<div className="FlexColumnGapQuart">
+														{reCaptchaToken && (
+															<Button
+																tabIndex={1}
+																onClick={handleSubmit}
+																disabled={!canSubmitNotAttending}
+																icon={config.rsvp.modal.forms.notAttending.submitButton.icon}
+																text={config.rsvp.modal.forms.notAttending.submitButton.label}
+															/>
+														)}
 														<Button
-															tabIndex={1}
-															onClick={handleSubmit}
-															icon={config.rsvp.modal.forms.notAttending.submitButton.icon}
-															text={config.rsvp.modal.forms.notAttending.submitButton.label}
+															transparent
+															tabIndex={2}
+															text="Go Back"
+															icon="arrow_back"
+															onClick={handleIsNotAttendingBack}
 														/>
-													)}
+													</div>
 												</Fragment>
 											)}
 											{form === Forms.ATTENDING && (
@@ -327,11 +405,23 @@ const RSVPForm: FC = () => {
 														inputID={config.rsvp.modal.forms.attending.inputs.name.label}
 														placeholder={config.rsvp.modal.forms.attending.inputs.name.placeholder}
 													/>
+													<Input
+														type={InputType.TEXT}
+														tabIndex={2}
+														maxLength={60}
+														value={emailAddress}
+														onChange={handleEmailAddressChange}
+														name={config.rsvp.modal.forms.attending.inputs.emailAddress.label}
+														inputID={config.rsvp.modal.forms.attending.inputs.emailAddress.label}
+														placeholder={
+															config.rsvp.modal.forms.attending.inputs.emailAddress.placeholder
+														}
+													/>
 													<div className={bem("modal-content-fields-dogsandkids")}>
 														<Input
 															type={InputType.SELECT}
 															inputID="dogs"
-															tabIndex={2}
+															tabIndex={3}
 															value={dogs}
 															onChange={handleDogsChange}
 															name={config.rsvp.modal.forms.attending.inputs.dogs.label}
@@ -340,7 +430,7 @@ const RSVPForm: FC = () => {
 														<Input
 															type={InputType.SELECT}
 															inputID="kids"
-															tabIndex={3}
+															tabIndex={4}
 															value={kids}
 															onChange={handleKidsChange}
 															name={config.rsvp.modal.forms.attending.inputs.kids.label}
@@ -349,36 +439,49 @@ const RSVPForm: FC = () => {
 													</div>
 													<Input
 														type={InputType.TEXTAREA}
-														name="Notes"
 														inputID="notes"
-														tabIndex={4}
+														tabIndex={5}
 														value={notes}
 														maxLength={300}
-														placeholder="Notes"
 														onChange={handleNotesChange}
 														inputClassName={bem("modal-content-fields-notes")}
+														name={config.rsvp.modal.forms.attending.inputs.notes.label}
+														placeholder={config.rsvp.modal.forms.attending.inputs.notes.placeholder}
 													/>
-													<div className={bem("modal-content-fields-paragraphs")}>
-														{config.rsvp.modal.forms.attending.statement.paragraphs.map(
-															paragraph => (
-																<p
-																	key={paragraph}
+													<p className={bem("modal-content-plusone", "ParagraphTwoBold")}>
+														Bringing a plus one?
+														<br />
+														Tell them to fill out this form.
+													</p>
+													<div className="FlexColumn">
+														{config.rsvp.modal.forms.attending.checkboxes.map((checkbox, index) => (
+															<div key={checkbox} className={bem("modal-content-checkbox")}>
+																<input
+																	id={checkbox}
+																	type="checkbox"
+																	name={checkbox}
+																	tabIndex={6 + index}
+																	checked={agreements[index]}
+																	onChange={handleAgreementCheck(index)}
+																	className={bem("modal-content-checkbox-box", "ParagraphTwoBold")}
+																/>
+																<label
+																	htmlFor={checkbox}
 																	className={bem(
-																		"modal-content-fields-paragraph",
-																		"modal-content-fields-text",
+																		"modal-content-checkbox-label",
 																		"ParagraphTwoBold",
 																	)}
 																>
-																	{paragraph}
-																</p>
-															),
-														)}
+																	{checkbox}
+																</label>
+															</div>
+														))}
 													</div>
 													{reCaptchaToken && (
 														<Button
-															tabIndex={5}
-															disabled={name === ""}
+															tabIndex={8}
 															onClick={handleSubmit}
+															disabled={!canSubmitAttending}
 															icon={config.rsvp.modal.forms.attending.submitButton.icon}
 															text={config.rsvp.modal.forms.attending.submitButton.label}
 														/>
@@ -388,6 +491,7 @@ const RSVPForm: FC = () => {
 											{form === Forms.SUBMIT && (
 												<Fragment>
 													<h3 className="HeadingFour">Thank you!</h3>
+													<AddToCalender />
 													<Fireworks />
 												</Fragment>
 											)}

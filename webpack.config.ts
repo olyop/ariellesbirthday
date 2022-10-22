@@ -12,7 +12,7 @@ import CompressionPlugin from "compression-webpack-plugin";
 import MiniCSSExtractPlugin from "mini-css-extract-plugin";
 import CSSMinimizerPlugin from "css-minimizer-webpack-plugin";
 import webpack, { Configuration, WebpackPluginInstance } from "webpack";
-import { Configuration as DevServerConfiguration } from "webpack-dev-server";
+import { Configuration as DevelopmentServerConfiguration } from "webpack-dev-server";
 
 import { Config } from "./src/config-type";
 
@@ -30,7 +30,8 @@ const SRC_CONFIG_PATH = path.join(SRC_PUBLIC_PATH, "config.yaml");
 
 const BUILD_PATH = path.join(ROOT_PATH, "build");
 
-const config = (await load((await readFile(SRC_CONFIG_PATH)).toString())) as Config;
+const configFile = await readFile(SRC_CONFIG_PATH);
+const config = (await load(configFile.toString())) as Config;
 
 const HTTPS_OPTIONS = {
 	type: "https",
@@ -40,7 +41,8 @@ const HTTPS_OPTIONS = {
 	},
 };
 
-const devServer: DevServerConfiguration = {
+// eslint-disable-next-line unicorn/prevent-abbreviations
+const devServer: DevelopmentServerConfiguration = {
 	host: process.env.HOST,
 	port: process.env.PORT,
 	historyApiFallback: true,

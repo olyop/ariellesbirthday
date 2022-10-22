@@ -18,7 +18,8 @@ interface Location {
 
 interface Dates {
 	rsvp: Date;
-	party: Date;
+	partyStart: Date;
+	partyEnd: Date;
 }
 
 interface Blurb {
@@ -59,6 +60,9 @@ interface RSVPFormIsAttending extends Paragraphs {
 
 interface RSVPFormNotAttending {
 	paragraphs: string[];
+	inputs: {
+		notes: Input;
+	};
 	submitButton: Button;
 	closeButton: Button;
 }
@@ -66,11 +70,12 @@ interface RSVPFormNotAttending {
 interface RSVPFormAttending extends Paragraphs {
 	inputs: {
 		name: Input;
+		emailAddress: Input;
 		dogs: Dropdown;
 		kids: Dropdown;
 		notes: Input;
 	};
-	statement: Paragraphs;
+	checkboxes: string[];
 	submitButton: Button;
 }
 

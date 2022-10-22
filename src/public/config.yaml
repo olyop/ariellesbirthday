@@ -10,7 +10,8 @@ location:
 
 dates:
   rsvp: 2022-12-10T00:00:00+10:00
-  party: 2023-01-21T13:00:00+10:00
+  partyStart: 2023-01-21T13:00:00+10:00
+  partyEnd: 2023-01-21T17:30:00+10:00
 
 blurb:
   title: Information
@@ -58,6 +59,10 @@ rsvp:
         paragraphs:
           - That's too bad!
           - Please hit submit to let us know
+        inputs:
+          notes:
+            label: Notes
+            placeholder: Anything else? Let us know.
         submitButton:
           icon: send
           label: Submit
@@ -67,11 +72,14 @@ rsvp:
       attending:
         paragraphs:
           - Woohoo!
-          - Please fill out the form to let us know!
+          - Let us know by filling out the form.
         inputs:
           name:
             label: Name
             placeholder: Name
+          emailAddress:
+            label: Email
+            placeholder: example@example.com
           dogs:
             label: "# Dogs"
             options:
@@ -88,11 +96,10 @@ rsvp:
               - 3
           notes:
             label: Notes
-            placeholder: Notes
-        statement:
-          paragraphs:
-            - All actions will be taken to make the event as environmentally friendly as possible.
-            - All food served will be 100% plant based.
+            placeholder: Anything else? Let us know.
+        checkboxes:
+          - I agree that all actions will be taken to make the event as environmentally friendly as possible.
+          - I agree to be cruelty free for the duration of this party and refrain from eating others.
         submitButton:
           icon: send
           label: Submit
@@ -109,7 +116,8 @@ information:
     - name: Where
       label: Centennial Parklands
       paragraphs:
-        - The party will take place at Centennial Park. The exact location can be seen below in Google Maps.
+        - The party will take place at Centennial Park.
+        - The exact location can be seen below in Google Maps.
           Click the link below for the pin location to follow on google maps.
         - If you are driving you can park along the roads close to the picnic spot but Centennial
           park has a one way round road around park so do follow google maps so you don't get lost.
@@ -118,6 +126,7 @@ information:
     - name: When
       label: 2pm on Saturday, January 21, 2023
       paragraphs:
+        - 2pm on Saturday, January 21, 2023
         - I have a feeling that the hottest 100 might fall on this day and if this is the case the
           countdown will be live streamed and i will stay at the park until the countdown has finished.
         - There will be kick ons in the park until sun down and potentially a warehose rave afterwards for those who are keen.
@@ -129,11 +138,11 @@ information:
         - time: 3pm
           text: the games will begin so be ready to play! You're never too old to play!
         - time: 4:30pm
-          text: cake be will cut and served
+          text: cake be will cut and served.
         - time: 5pm
           text: Norma will leave so she won't have to worry about driving in the dark.
         - time: 5:30pm
-          text: the picnic is officially over and sunset hangs and chills begin
+          text: the picnic is officially over and sunset hangs and chills begin.
         - time: 8pm
           text: after sunset we will see where the night will take us.
 

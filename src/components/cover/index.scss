@@ -27,12 +27,14 @@
 				object-fit: cover;
 				object-position: left;
 			}
-			&-cow {
+			&-baby {
 				@media (min-width: 1001px) {
 					top: 0;
 					left: 0;
+					width: 23%;
 					z-index: 1;
 					height: 100%;
+					object-position: left;
 				}
 			}
 			&-river {
@@ -45,7 +47,8 @@
 					z-index: 2;
 				}
 			}
-			&-climbing {
+			&-asian {
+				object-position: right;
 				@media (min-width: 1001px) {
 					bottom: 0;
 					right: 0;
@@ -65,7 +68,7 @@
 				@media (min-width: 1001px) {
 					top: 3%;
 					right: 2%;
-					width: 24%;
+					width: 22%;
 					z-index: 2;
 				}
 				@media (max-width: 1000px) {

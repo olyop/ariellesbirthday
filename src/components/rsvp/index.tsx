@@ -21,7 +21,7 @@ const RSVP: FC = () => {
 	const RSVP_TIME = config.dates.rsvp.getTime();
 	const TIME_TO_RSVP = RSVP_TIME - Date.now();
 
-	const DAYS_TO_RSVP = parseInt((TIME_TO_RSVP / 1000 / 60 / 60 / 24).toFixed(0));
+	const DAYS_TO_RSVP = Number.parseInt((TIME_TO_RSVP / 1000 / 60 / 60 / 24).toFixed(0));
 
 	const rsvpDate = dateTimeFormatter.format(RSVP_TIME);
 	const rsvpDaysTo = relativeTimeFormatter.format(DAYS_TO_RSVP, "days");

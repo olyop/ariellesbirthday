@@ -15,9 +15,9 @@ const relativeTimeFormatter = new Intl.RelativeTimeFormat();
 const determineCountdown = (timeToParty: Date) => {
 	const PARTY_TIME = timeToParty.getTime();
 	const TIME_TO_PARTY = PARTY_TIME - Date.now();
-	const SECONDS_TO_PARTY = parseInt((TIME_TO_PARTY / 1000).toFixed(0));
-	const HOURS_TO_PARTY = parseInt((SECONDS_TO_PARTY / 60 / 60).toFixed(0));
-	const DAYS_TO_PARTY = parseInt((HOURS_TO_PARTY / 24).toFixed(0));
+	const SECONDS_TO_PARTY = Number.parseInt((TIME_TO_PARTY / 1000).toFixed(0));
+	const HOURS_TO_PARTY = Number.parseInt((SECONDS_TO_PARTY / 60 / 60).toFixed(0));
+	const DAYS_TO_PARTY = Number.parseInt((HOURS_TO_PARTY / 24).toFixed(0));
 
 	if (HOURS_TO_PARTY < 5) {
 		return relativeTimeFormatter.format(SECONDS_TO_PARTY, "second");
@@ -35,11 +35,11 @@ const determineCountdown = (timeToParty: Date) => {
 
 const Countdown: FC = () => {
 	const config = useConfig();
-	const [countdown, setCountdown] = useState(determineCountdown(config.dates.party));
+	const [countdown, setCountdown] = useState(determineCountdown(config.dates.partyStart));
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setCountdown(determineCountdown(config.dates.party));
+			setCountdown(determineCountdown(config.dates.partyStart));
 		}, ms("1s"));
 
 		return () => clearInterval(interval);

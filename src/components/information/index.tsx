@@ -44,7 +44,7 @@ const createGoogleMapsDirectionsURL = (
 	const baseURL = "https://www.google.com.au/maps/dir";
 	const locationSection = `${location.lat},${location.lng}`;
 	const destinationSection = `${destination.lat},${destination.lng}`;
-	return `${baseURL}/${locationSection}/${destinationSection}/@${locationSection}`;
+	return `${baseURL}/${locationSection}/${destinationSection}`;
 };
 
 const bem = createBEM("Information");
@@ -102,8 +102,14 @@ const Information: FC = () => {
 				className={bem("right-expanded", "right", "FlexColumnGapHalf")}
 				style={{ marginTop: determineInformationRightTop(expanded) }}
 			>
-				{config.information.sections[expanded]?.paragraphs?.map(paragraph => (
-					<p key={paragraph} className="ParagraphOne">
+				{config.information.sections[expanded]?.paragraphs?.map((paragraph, index) => (
+					<p
+						key={paragraph}
+						className={bem(
+							index === 0 && "right-paragraph-first",
+							index === 0 ? "HeadingFive" : "ParagraphOne",
+						)}
+					>
 						{paragraph}
 					</p>
 				))}
@@ -119,19 +125,18 @@ const Information: FC = () => {
 						<GoogleMaps>
 							<Map
 								zoom={16}
-								className={bem("right-location")}
-								fullscreenControl
 								panControl
-								controlSize={30}
 								mapTypeControl
+								fullscreenControl
+								controlSize={30}
 								streetViewControl={false}
+								className={bem("right-location")}
 								zoomControlOptions={{
-									position: 8.0,
+									position: 8,
 								}}
 								mapTypeControlOptions={{
 									mapTypeIds: ["satellite", "roadmap"],
-									position: 5.0,
-									style: 0.0,
+									position: 5,
 								}}
 								mapTypeId="roadmap"
 								center={{
