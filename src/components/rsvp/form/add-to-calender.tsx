@@ -6,13 +6,7 @@ import { useConfig } from "../../../config-content";
 
 import "add-to-calendar-button/assets/css/atcb.css";
 
-const addZeroOrNot = (value: number) => {
-	if (value < 10) {
-		return `0${value}`;
-	} else {
-		return value;
-	}
-};
+const addZeroOrNot = (value: number) => (value < 10 ? `0${value}` : value);
 
 const AddToCalender: FC = () => {
 	const config = useConfig();
@@ -25,7 +19,7 @@ const AddToCalender: FC = () => {
 		iCalFileName: "Reminder-Event",
 		location: `${config.location.lat},${config.location.lng}`,
 		description: `${config.subTitle} ${config.blurb.catchLine}`,
-		options: ["Apple", "Google", "iCal", "Microsoft365", "Outlook.com"],
+		options: ["Google", "iCal", "Microsoft365", "Outlook.com"],
 		timeZone: "Australia/Sydney",
 		startDate: `${start.getFullYear()}-${addZeroOrNot(start.getMonth() + 1)}-${start.getDate()}`,
 		startTime: `${start.getHours()}:${addZeroOrNot(start.getMinutes())}`,

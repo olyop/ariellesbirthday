@@ -13,12 +13,15 @@
 		grid-template: repeat(3, 1fr) / auto var(--row-gap);
 		&-gap {
 			background-color: var(--expanded-color);
+			border-top: var(--border-width) var(--border-style) var(--border-color);
+			border-bottom: var(--border-width) var(--border-style) var(--border-color);
 		}
 	}
 	&__right {
 		border-radius: var(--border-radius);
 		border-top-left-radius: 0;
 		padding: var(--space-half) var(--space-three-quart);
+		border: var(--border-width) var(--border-style) var(--border-color);
 		&-expanded {
 			background-color: var(--expanded-color);
 		}

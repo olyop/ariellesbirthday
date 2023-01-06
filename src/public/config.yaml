@@ -20,13 +20,14 @@ blurb:
     - Since I've been in Australia so long now, I think it's fitting to have a party!
     - As many of you know, I don't plan to get married or have children so this will be the chance you get to join me for a fiesta!
       I'm hoping it'll be a hot summer, so we'll be under the trees and near a pond to keep us cool.  In the case that the desired location is already taken Saturday morning, the party will take place as close to the original location but a new pin will be updated on map on below.
-    - Please RSVP asap (not me asap.plants) via the form below so I can organise enough delicious foods and get an idea of who is joining for a lovely afternoon.
+    - Please RSVP asap (not me asap.plants) via the form below so I can organise enough delicious foods and get an idea of who is joining us for a lovely afternoon.
       You are more than welcome to bring dogs or any pets (if they are social) and of course friends and family members.
-    - This will be a ECO-friendly party where refusing to use single use products comes first and then second is byo and third is biodegradable.
-      All food provided should be finger foods. Only some plates and cutlery will be provided.
-      Pretty please bring your own drinking vessel. I’d appreciate no single use plastics or littering.
-    - Please check this website closer to the date for any updates or just message me directly if you have any questions.
+    - This is a ECO-friendly party, therefore there will be no single use plastics and no littering.
+      All food provided should be finger foods and some plates, cutlery, and glasses will be provided.
+      Pretty please bring your own drinking vessel so you can stay hydrated.
+    - Please check this website closer to the date for any updates or just message me directly if you have any questions :)
     - This is a day for all to enjoy, eating delicious food, outdoors with lovely humans and good vibes only. I look forward to celebrating my birthday with you!
+    - PS - This may double as a going away party as I may be moving to Columbia if I get accepted for the exchange program through UNSW, so this party may double as a going away party as well!!
   emojis: 🌳😊💚
 
 rsvp:
@@ -76,7 +77,7 @@ rsvp:
         inputs:
           name:
             label: Name
-            placeholder: Name
+            placeholder: Please enter you're name
           emailAddress:
             label: Email
             placeholder: example@example.com
@@ -126,10 +127,10 @@ information:
     - name: When
       label: 2pm on Saturday, January 21, 2023
       paragraphs:
-        - 2pm on Saturday, January 21, 2023
-        - I have a feeling that the hottest 100 might fall on this day and if this is the case the
-          countdown will be live streamed and i will stay at the park until the countdown has finished.
-        - There will be kick ons in the park until sun down and potentially a warehose rave afterwards for those who are keen.
+        - The party will start at 2pm and finish at 5:30pm.
+        - This is a chill hang out picnic so feel free to drop by any of the hours as i'll be hanging around until sun down.
+        - I might be moving to Columbia if I get accepted for the exchange program through UNSW, so this party may double as a going away party as well!!
+        - There will be kick ons in the park until sun down and potentially a warehouse rave afterwards for those who are keen but I have no idea how to find one of these so i'm taking suggestions for what to do later in the evening! Please let me know any late night ideas!
     - name: What's on
       label: Funs
       timeline:
@@ -145,6 +146,8 @@ information:
           text: the picnic is officially over and sunset hangs and chills begin.
         - time: 8pm
           text: after sunset we will see where the night will take us.
+        - time: Afters
+          text: All times are subjected to change especially is the games are a vibe and everyones having fun. The cake will be served when the games are over! The prizes for the Games are the sensation of being a winner!
 
 countdown:
   text: Countdown to party

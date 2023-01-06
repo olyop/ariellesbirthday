@@ -30,6 +30,7 @@ const Input: FC<PropsWithChildren<InputPropTypes>> = props => {
 		maxLength,
 		className,
 		placeholder,
+		autoComplete,
 		selectOptions,
 		labelClassName,
 		inputClassName,
@@ -67,6 +68,7 @@ const Input: FC<PropsWithChildren<InputPropTypes>> = props => {
 					maxLength={maxLength}
 					onChange={handleChange}
 					placeholder={placeholder}
+					autoComplete={autoComplete}
 					value={value === null ? undefined : value}
 					className={bem(inputClassName, "input")}
 				/>
@@ -103,6 +105,7 @@ const Input: FC<PropsWithChildren<InputPropTypes>> = props => {
 					maxLength={maxLength}
 					onChange={handleChange}
 					placeholder={placeholder}
+					autoComplete={autoComplete}
 					className={bem(inputClassName, "input")}
 					value={value === null ? undefined : value}
 				/>
@@ -129,10 +132,11 @@ export interface InputPropTypes extends InputID, ClassNamePropTypes {
 	value: string;
 	type: InputType;
 	tabIndex: number;
-	onChange: InputChange;
 	maxLength?: number;
 	disabled?: boolean;
 	placeholder?: string;
+	autoComplete?: string;
+	onChange: InputChange;
 	selectOptions?: string[];
 }
 

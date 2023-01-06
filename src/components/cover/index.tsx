@@ -17,10 +17,10 @@ const Cover: FC = () => (
 				className={bem("images-cover-baby", "images-cover")}
 			/>
 			<img
-				src="/images/arielle-river.jpg"
-				alt="Arielle next to a river"
-				title="Arielle somewhere near a river, probably overseas"
-				className={bem("images-cover-river", "images-cover")}
+				src="/images/arielle-harbour.jpeg"
+				alt="Arielle in Sydney Harbour"
+				title="Arielle in Sydney Harbour"
+				className={bem("images-cover-harbour", "images-cover")}
 			/>
 			<img
 				src="/images/arielle-asian.jpg"

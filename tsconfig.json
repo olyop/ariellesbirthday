@@ -4,6 +4,7 @@
 		"jsx": "react",
 		"lib": ["ESNext", "DOM"],
 		"jsxFactory": "createElement",
+		"moduleResolution": "Node",
 		"exactOptionalPropertyTypes": false,
 		"baseUrl": "./",
 		"paths": {

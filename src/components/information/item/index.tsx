@@ -15,9 +15,9 @@ const InformationItem: FC<PropTypes> = ({ name, label, tabIndex, onSelect, isExp
 			type="button"
 			onClick={onSelect}
 			onFocus={onSelect}
-			title={config.information.expandText.full}
 			tabIndex={tabIndex}
-			className={bem(isExpanded && "expanded", "", "ParagraphOne")}
+			title={config.information.expandText.full}
+			className={bem(isExpanded && "expanded", "", "ParagraphOne Border")}
 		>
 			<span className={bem("text-left", "text")}>{name}</span>
 			<Window>

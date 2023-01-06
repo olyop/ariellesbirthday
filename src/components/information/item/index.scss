@@ -25,6 +25,7 @@
 		}
 	}
 	&__text {
+		margin-top: 4rem;
 		font-weight: 700;
 		justify-self: left;
 		letter-spacing: 3rem;
@@ -41,8 +42,8 @@
 		height: 2rem;
 		width: 50rem;
 		display: block;
+		margin-top: 1rem;
 		align-self: center;
-		margin-bottom: 1rem;
 		background-color: var(--text-color);
 	}
 	&__more {
@@ -72,6 +73,7 @@
 		background-color: var(--hover-color);
 	}
 	&__expanded {
+		border-right: 0;
 		border-top-right-radius: 0;
 		border-bottom-right-radius: 0;
 		background-color: var(--expanded-color) !important;

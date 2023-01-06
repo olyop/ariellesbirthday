@@ -170,21 +170,19 @@ const RSVPForm: FC = () => {
 		}
 	};
 
+	const canSubmitBase = name.trim() !== "" && name.trim().length < 60 && reCaptchaToken;
+
 	const canSubmitAttending =
-		name !== "" &&
-		name.length < 60 &&
+		canSubmitBase &&
 		emailAddress !== "" &&
 		emailAddress.length < 60 &&
-		reCaptchaToken &&
 		agreements[0] &&
 		agreements[1];
-
-	const canSubmitNotAttending = name !== "" && name.length < 60 && reCaptchaToken;
 
 	const handleSubmit = () => {
 		if (
 			(form === Forms.ATTENDING && canSubmitAttending) ||
-			(form === Forms.NOT_ATTENDING && canSubmitNotAttending)
+			(form === Forms.NOT_ATTENDING && canSubmitBase)
 		) {
 			setLoading(true);
 		}
@@ -281,6 +279,7 @@ const RSVPForm: FC = () => {
 														tabIndex={1}
 														value={name}
 														maxLength={60}
+														autoComplete="name"
 														onChange={handleNameChange}
 														placeholder={config.rsvp.modal.forms.name.name.placeholder}
 													/>
@@ -364,7 +363,7 @@ const RSVPForm: FC = () => {
 															<Button
 																tabIndex={1}
 																onClick={handleSubmit}
-																disabled={!canSubmitNotAttending}
+																disabled={!canSubmitBase}
 																icon={config.rsvp.modal.forms.notAttending.submitButton.icon}
 																text={config.rsvp.modal.forms.notAttending.submitButton.label}
 															/>
@@ -400,6 +399,7 @@ const RSVPForm: FC = () => {
 														tabIndex={1}
 														value={name}
 														maxLength={60}
+														autoComplete="name"
 														onChange={handleNameChange}
 														name={config.rsvp.modal.forms.attending.inputs.name.label}
 														inputID={config.rsvp.modal.forms.attending.inputs.name.label}
@@ -410,6 +410,7 @@ const RSVPForm: FC = () => {
 														tabIndex={2}
 														maxLength={60}
 														value={emailAddress}
+														autoComplete="email"
 														onChange={handleEmailAddressChange}
 														name={config.rsvp.modal.forms.attending.inputs.emailAddress.label}
 														inputID={config.rsvp.modal.forms.attending.inputs.emailAddress.label}
@@ -443,6 +444,7 @@ const RSVPForm: FC = () => {
 														tabIndex={5}
 														value={notes}
 														maxLength={300}
+														autoComplete="off"
 														onChange={handleNotesChange}
 														inputClassName={bem("modal-content-fields-notes")}
 														name={config.rsvp.modal.forms.attending.inputs.notes.label}
