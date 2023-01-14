@@ -1,11 +1,10 @@
-import ms from "ms";
 import { createBEM } from "@oly_op/bem";
-import { createElement, FC, useEffect, useState } from "react";
+import ms from "ms";
+import { FC, createElement, useEffect, useState } from "react";
 
 import { useConfig } from "../../config-content";
-
-import "./index.scss";
 import Section from "../section";
+import "./index.scss";
 
 const bem = createBEM("Countdown");
 

@@ -1,14 +1,15 @@
+import fs, { ReadStream } from "node:fs";
+import path from "node:path";
+
+import {
+	DeleteObjectsCommand,
+	ListObjectsV2Command,
+	PutObjectCommand,
+	S3,
+} from "@aws-sdk/client-s3";
 import mime from "mime";
 import limit from "p-limit";
-import path from "node:path";
 import readdirp from "readdirp";
-import fs, { ReadStream } from "node:fs";
-import {
-	S3,
-	PutObjectCommand,
-	ListObjectsV2Command,
-	DeleteObjectsCommand,
-} from "@aws-sdk/client-s3";
 
 console.log("Starting");
 

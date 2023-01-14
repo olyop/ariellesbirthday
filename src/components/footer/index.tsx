@@ -1,8 +1,7 @@
 import { createBEM } from "@oly_op/bem";
-import { createElement, FC, Fragment } from "react";
+import { FC, Fragment, createElement } from "react";
 
 import { useConfig } from "../../config-content";
-
 import "./index.scss";
 
 const bem = createBEM("Footer");
@@ -23,15 +22,19 @@ const Footer: FC = () => {
 					Oliver Plummer
 				</a>
 			</p>
-			<a
-				href="https://github.com/olyop/ariellesbirthday"
-				className="Link ParagraphTwo LowerCase"
-				rel="noreferrer"
-				target="_blank"
-				title="Source Code"
-			>
-				Source Code
-			</a>
+			<p className="ParagraphTwo">
+				<Fragment>Hosted on AWS using S3 and CloudFront</Fragment>
+				<Fragment> — </Fragment>
+				<a
+					href="https://github.com/olyop/ariellesbirthday"
+					className="Link LowerCase"
+					rel="noreferrer"
+					target="_blank"
+					title="Source Code"
+				>
+					Source Code
+				</a>
+			</p>
 		</footer>
 	);
 };
