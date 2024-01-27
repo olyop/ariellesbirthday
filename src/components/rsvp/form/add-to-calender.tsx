@@ -1,10 +1,9 @@
 import Button from "@oly_op/react-button";
-import { createElement, FC, useEffect } from "react";
 import { atcb_action, atcb_init } from "add-to-calendar-button";
+import "add-to-calendar-button/assets/css/atcb.css";
+import { FC, createElement, useEffect } from "react";
 
 import { useConfig } from "../../../config-content";
-
-import "add-to-calendar-button/assets/css/atcb.css";
 
 const addZeroOrNot = (value: number) => (value < 10 ? `0${value}` : value);
 
